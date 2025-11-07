@@ -11,10 +11,8 @@
     <title>Register</title>
 </head>
 
-<body>
-    <main class="h-screen">
-        @yield('content')
-    </main>
+<body class="bg-gray-50 m-0 p-0 h-screen">
+    @yield('content')
     <!-- ⚡ Import script Flowbite -->
     <script src="node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>

@@ -56,6 +56,7 @@ class CategoryController extends Controller
             'name' => $request->get('name'),
             'decription' =>$request->get('decription'),
             'image' => $request->get('image'),
+            'slug' => Str::slug($request->name),
          ]);
          return redirect()->route('categories.index')->with('success', 'Update danh muc thanh cong!');
     }

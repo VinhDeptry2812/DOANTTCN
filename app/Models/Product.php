@@ -33,10 +33,5 @@ class Product extends Model
     }
 
     
-    //Lấy gallery dạng mảng nếu lưu JSON
-     
-    public function getGalleryAttribute($value)
-    {
-        return $value ? json_decode($value, true) : [];
-    }
+    
 }
