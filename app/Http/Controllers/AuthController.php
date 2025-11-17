@@ -18,11 +18,14 @@ class AuthController extends Controller
 
     public function postRegister(RegisterRequest $request)
     {
-        User::create([
+        $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
+
+        // Đăng nhập luôn sau khi tạo
+        Auth::login($user);
         return redirect()->route('homepage');
     }
 
