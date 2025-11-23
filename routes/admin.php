@@ -31,7 +31,9 @@ Route::middleware(['auth', 'admin'])->prefix('product')->controller(ProductContr
 });
 
 Route::middleware(['auth', 'admin'])->prefix('acount')->controller(AcountController::class)->name('acount.')->group(function () {
-    Route::get('/', 'index')->name('index'); // acount.index
+    Route::get('/admin', 'index')->name('index'); // acount.index 
+    Route::get('/manager', 'indexM')->name('indexM'); // acount.indexM
+    Route::get('/user', 'indexU')->name('indexU'); // acount.indexU
     Route::get('/{id}','edit')->name('edit');
     Route::put('/{id}','update')->name('update');
     Route::delete('/{id}/delete','delete')->name('delete');

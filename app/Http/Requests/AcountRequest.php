@@ -22,7 +22,7 @@ class AcountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => 'required|in:user,admin'
+            'role' => 'required|in:user,admin,manager'
         ];
     }
 }

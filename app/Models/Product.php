@@ -32,6 +32,17 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    
+    protected static function booted()
+{
+    static::saving(function ($product) {
+        if ($product->stock == 0) {
+            $product->status = 0; // Hết hàng
+        } elseif ($product->stock <= 5) {
+            $product->status = 2; // Sắp hết
+        } else {
+            $product->status = 1; // Còn hàng
+        }
+    });
+}
     
 }

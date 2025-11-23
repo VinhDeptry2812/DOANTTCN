@@ -131,8 +131,8 @@
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Danh mục</th>
                                 <th scope="col" class="px-4 py-3">Giá</th>
-                                <th scope="col" class="px-4 py-3">Trạng thái</th>
                                 <th scope="col" class="px-4 py-3">Tồn kho</th>
+                                <th scope="col" class="px-4 py-3">Trạng thái</th>
                                 <th scope="col" class="px-4 py-3">Decription</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -142,7 +142,7 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr class="border-b dark:border-gray-700">
-                                    <th scope="row" 
+                                    <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $product->id }}</th>
                                     <td class="px-4 py-3">
@@ -154,42 +154,53 @@
                                     <td class="px-4 py-3">
                                         {{ $product->category_id ? $product->category->name : 'Chưa có' }}</td>
                                     <td class="px-4 py-3"> {{ $product->price }}</td>
-                                    <td class="px-4 py-3"> {{ $product->status ? 'Còn hàng' : 'Hết hàng' }}</td>
-                                    <td class="px-4 py-3"> {{ $product->stock }}</td>
+                                    <td class="px-4 py-3"> 
+                                        {{ $product->stock }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($product->status == 0)
+                                            <span class="text-red-600 font-medium">Hết hàng</span>
+                                        @elseif($product->status == 2)
+                                            <span class="text-yellow-600 font-medium">Sắp khô</span>
+                                        @else
+                                            <span class="text-green-600 font-medium">Còn hàng</span>
+                                        @endif
+                                    </td>
+                                    
                                     <td class="px-4 py-3 max-w-xs truncate"> {{ $product->decription }}</td>
 
 
-                                    <td class="px-4 py-3 align-middle">
+                                    <td class="px-4 py-3 flex gap-2">
                                         <a href="{{ route('product.edit', ['id' => $product->id]) }}"
-                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mr-3">
+                                            class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded">
                                             Edit
                                         </a>
 
-                                        
-                                    </td>
-
-                                    <td class="px-4 py-3 align-middle">
                                         <form action="{{ route('product.delete', ['id' => $product->id]) }}"
-                                            method="POST" style="display:inline;">
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button
-                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 type="submit"
-                                                onclick="return confirm('Are you sure?')">
+                                            <button onclick="return confirm('Xóa sản phẩm này?')"
+                                                class="text-white bg-red-700 hover:bg-red-800 px-4 py-2 rounded">
                                                 Delete
-
                                             </button>
                                         </form>
                                     </td>
 
                                 </tr>
+
                             @empty
                                 <tr class="px-3">
                                     <td colspan="5" class="text-center">Nothing here ...</td>
                                 </tr>
                             @endforelse
+
+
+
                         </tbody>
                     </table>
+                    <div class="mt-4 p-4">
+                        {{ $products->onEachSide(1)->links() }}
+                    </div>
                 </div>
             </div>
         </div>

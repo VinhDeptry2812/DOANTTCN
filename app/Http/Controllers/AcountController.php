@@ -12,7 +12,19 @@ class AcountController extends Controller
 {
     public function index()
     {
-        $acounts = User::all();
+        $acounts = User::where('role','admin')->get();
+        return view('admin.acount.indexAdmin', compact('acounts'));
+    }
+
+    public function indexU()
+    {
+        $acounts = User::where('role','user')->get();
+        return view('admin.acount.indexUser', compact('acounts'));
+    }
+
+    public function indexM()
+    {
+        $acounts = User::where('role','manager')->get();
         return view('admin.acount.index', compact('acounts'));
     }
 
@@ -37,7 +49,7 @@ class AcountController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('acount.index')->with('success', 'Cập nhật role thành công!');
+        return redirect()->route('acount.indexM')->with('success', 'Cập nhật role thành công!');
     }
 
     public function delete($id)

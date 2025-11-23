@@ -10,9 +10,11 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    
+
     public function index()
     {
-        $products = Product::with('category')->get(); // load category luôn
+        $products = Product::with('category')->paginate(5); // load category luôn, 5 sản phẩm 1 trang
         return view('admin.products.index', compact('products'));
     }
 
@@ -85,15 +87,19 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Update san pham thanh cong!');
     }
 
+    
+
     public function delete($id)
     {
+
+        //Xoa anh
         $this->delateImage($id);
 
         $product = Product::findOrFail($id);
         $product->delete();
         return back()->with('success', 'Xoa san pham thanh cong');
     }
-
+    
     //Xóa ảnh
     public function delateImage($id)
     {
@@ -106,4 +112,5 @@ class ProductController extends Controller
         //if kiểm tra ảnh hiện tại có rỗng không, đường dẫn có không, 
         //và đảm bảo đường dẫn đó không phải thư mục thì xóa tránh lỗi
     }
+    
 }

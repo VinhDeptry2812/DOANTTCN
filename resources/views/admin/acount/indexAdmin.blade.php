@@ -139,12 +139,12 @@
                         <tbody>
                             @forelse($acounts as $acount)
                                 <tr class="border-b dark:border-gray-700">
-                                    <th scope="row" 
+                                    <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $acount->id }}</th>
-                                    
+
                                     <td class="px-4 py-3"> {{ $acount->name }}</td>
-                                    
+
                                     <td class="px-4 py-3"> {{ $acount->email }}</td>
 
                                     <td class="px-4 py-3"> {{ $acount->role }}</td>
@@ -155,8 +155,7 @@
                                             Edit
                                         </a>
 
-                                        <form action="{{ route('acount.delete', ['id' => $acount->id]) }}"
-                                            method="POST">
+                                        <form action="{{ route('acount.delete', ['id' => $acount->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button onclick="return confirm('Xóa voucher này?')"

@@ -129,7 +129,8 @@
                                 <th scope="col" class="px-4 py-3">ID</th>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Email</th>
-                                <th scope="col" class="px-4 py-3">Level</th>
+                                <th scope="col" class="px-4 py-3">Số điện thoại</th>
+                                <th scope="col" class="px-4 py-3">Địa chỉ</th>
                                 <th scope="col" class="px-4 py-3"></th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -144,10 +145,9 @@
                                         {{ $acount->id }}</th>
                                     
                                     <td class="px-4 py-3"> {{ $acount->name }}</td>
-                                    
                                     <td class="px-4 py-3"> {{ $acount->email }}</td>
-
-                                    <td class="px-4 py-3"> {{ $acount->role }}</td>
+                                    <td class="px-4 py-3"> {{ $acount->phone_number }}</td>
+                                    <td class="px-4 py-3"> {{ $acount->dia_chi }}</td>
 
                                     <td class="px-4 py-3 flex gap-2">
                                         <a href="{{ route('acount.edit', ['id' => $acount->id]) }}"

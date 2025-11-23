@@ -1,4 +1,4 @@
-<!-- resources/views/welcome.blade.php -->
+
 <!DOCTYPE html>
 <html lang="vi">
 
