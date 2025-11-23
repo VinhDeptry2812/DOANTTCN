@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class ProductEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,9 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'string|required',
             'decription' => 'string|nullable',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
+            'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
             'stock' => 'numeric|nullable',
             'price' => 'required|numeric',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'image.image' => 'File upload phải là hình ảnh.',
-            'image.mimes' => 'Hình ảnh chỉ chấp nhận các định dạng: jpg, jpeg, png, webp.',
-            'image.max' => 'Dung lượng ảnh tối đa là 2MB.',
         ];
     }
 }

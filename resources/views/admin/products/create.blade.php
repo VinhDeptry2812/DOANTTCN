@@ -4,13 +4,13 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="mx-auto px-5 lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
                     <div class="sm:col-span-3">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
                             Name</label>
-                        <input type="text" name="name" id="name" value="{{old('name')}}"
+                        <input type="text" name="name" id="name" value="{{ old('name') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Type category name" required="">
                         @error('name')
@@ -20,7 +20,7 @@
                     <div class="sm:col-span-1">
                         <label for="stock"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                        <input type="number" name="stock" id="stock" value="{{old('stock')}}"
+                        <input type="number" name="stock" id="stock" value="{{ old('stock') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="10" required="">
                         @error('stock')
@@ -30,7 +30,7 @@
                     <div class="sm:col-span-1">
                         <label for="price"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                        <input type="number" name="price" id="stock" value="{{old('price')}}"
+                        <input type="number" name="price" id="stock" value="{{ old('price') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="100000" required="">
                         @error('price')
@@ -55,10 +55,10 @@
                     <div class="sm:col-span-3">
                         <label for="description"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Decription</label>
-                        <textarea id="description" name="decription" rows="8" value="{{old('decription')}}"
+                        <textarea id="description" name="decription" rows="8"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Your description here"></textarea>
-                        @error('description')
+                            placeholder="Your description here">{{ old('decription') }}</textarea>
+                        @error('decription')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
                     </div>

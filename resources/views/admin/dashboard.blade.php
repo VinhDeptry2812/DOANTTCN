@@ -25,9 +25,9 @@
                         </svg>
                         <span class="sr-only">Toggle sidebar</span>
                     </button>
-                    <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
-                        <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="mr-3 h-8" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                    <a href="#" class="flex items-center justify-between">
+                        <img src="/Logo/logo.png" class="h-8" alt="Yody Logo" />
+                        
                     </a>
                     <form action="#" method="GET" class="hidden md:block md:pl-2">
                         <label for="topbar-search" class="sr-only">Search</label>
@@ -382,8 +382,8 @@
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                         id="dropdown">
                         <div class="py-3 px-4">
-                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil Sims</span>
-                            <span class="block text-sm text-gray-900 truncate dark:text-white">name@flowbite.com</span>
+                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
+                            <span class="block text-sm text-gray-900 truncate dark:text-white">{{ Auth::user()->email }}</span>
                         </div>
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
@@ -486,7 +486,7 @@
                                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                             </svg>
-                            <span class="ml-3">Overview</span>
+                            <span class="ml-3">Thống kê</span>
                         </a>
                     </li>
                     <li>
@@ -499,7 +499,7 @@
                                     d="M5 3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm14 18a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4ZM5 11a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5Zm14 2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4Z" />
                             </svg>
 
-                            <span class="ml-3">Categories</span>
+                            <span class="ml-3">Danh mục</span>
                         </a>
                     </li>
                     <li>
@@ -514,21 +514,21 @@
                             </svg>
 
 
-                            <span class="ml-3">Products</span>
+                            <span class="ml-3">Sản phẩm</span>
                         </a>
                     </li>
                     <li>
                         <button type="button"
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
-                            <svg aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                                    clip-rule="evenodd"></path>
+                                    d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+                                    clip-rule="evenodd" />
                             </svg>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Tài khoản</span>
                             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -538,19 +538,33 @@
                         </button>
                         <ul id="dropdown-pages" class="hidden py-2 space-y-2">
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
+                                <a href="{{route('acount.indexM')}}"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Quản trị viên</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
+                                <a href="{{route('acount.indexU')}}"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Khách hàng</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
+                                <a href="{{route('acount.index')}}"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Admin</a>
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{{route('voucher.index')}}"
+                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                            </svg>
+
+                            <span class="ml-3">Mã giảm giá</span>
+                        </a>
+                    </li>
+                    
                     <li>
                         <button type="button"
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
