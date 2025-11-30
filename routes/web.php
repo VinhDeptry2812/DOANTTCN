@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return view('component.layout');
@@ -15,5 +17,10 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('cart', function () {return view('component.cart');})->name('cart.index');
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::get('cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
