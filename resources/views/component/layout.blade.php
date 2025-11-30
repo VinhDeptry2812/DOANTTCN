@@ -15,7 +15,7 @@
     <header class="shadow-sm bg-[#f9d800]">
 
         {{-- MAIN NAV --}}
-        <nav class="px-4 lg:px-10 py-3">
+        <nav class="fixed top-0 left-0 w-full z-50 bg-[#f9d800] shadow-sm px-4 lg:px-10 py-3">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 {{-- LOGO --}}
                 <a href="{{ url('/') }}" class="flex items-center">
@@ -75,7 +75,7 @@
                     @endauth
 
                     {{-- Cart icon --}}
-                    <a href="#"
+                    <a href="{{ route('cart.index') }}"
                        class="relative p-2 rounded-full bg-white/70 hover:bg-white">
                         🛒
                         <span
@@ -171,15 +171,15 @@
         </nav>
     </header>
 
-{{-- MAIN CONTENT: code luôn, KHÔNG banner nhỏ, KHÔNG thanh danh mục --}}
-    <main class="min-h-[60vh]">
+{{-- MAIN CONTENT: code luôn, KHÔNG thanh danh mục --}}
+    <main class="pt-15">
 
     {{-- 1. HERO BANNER LỚN --}}
     <section class="bg-white">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="relative overflow-hidden rounded-2xl">
                 <img src="{{ asset('banner/main-banner.jpg') }}"
-                     alt="YODY Banner"
+                     alt=""
                      class="w-full h-full object-cover max-h-[380px]">
                 <div class="absolute inset-0 bg-black/25"></div>
                 <div class="absolute inset-0 flex flex-col justify-center px-6 lg:px-10 text-white">
@@ -217,34 +217,145 @@
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                @for ($i = 1; $i <= 5; $i++)
-                    <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                        <a href="#">
-                            <div class="relative">
-                                <img src="{{ asset('products/nam_'.$i.'.jpg') }}"
-                                     alt="Sản phẩm nam {{ $i }}"
-                                     class="w-full aspect-[3/4] object-cover">
-                                <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                    -20%
-                                </span>
+                {{-- Sản phẩm 1 --}}
+                <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                    <a href="#">
+                        <div class="relative">
+                            <img src="{{ asset('productsnam/nam1.jpg') }}"
+                                alt="Sản phẩm nam 1"
+                                class="w-full aspect-[3/4] object-cover">
+                            <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                -20%
+                            </span>
+                        </div>
+                        <div class="px-2 py-2">
+                            <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
+                            <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                Áo khoác nam giữ nhiệt siêu ấm 1
+                            </h3>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
+                                <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
                             </div>
-                            <div class="px-2 py-2">
-                                <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
-                                <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                    Áo khoác nam giữ nhiệt siêu ấm {{ $i }}
-                                </h3>
-                                <div class="mt-1 flex items-center gap-2">
-                                    <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
-                                    <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
-                                </div>
-                                <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                            <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                        </div>
+                    </a>
+                </div>
+
+                {{-- Sản phẩm 2 --}}
+                <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                    <a href="#">
+                        <div class="relative">
+                            <img src="{{ asset('productsnam/nam2.jpg') }}"
+                                alt="Sản phẩm nam 2"
+                                class="w-full aspect-[3/4] object-cover">
+                            <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                -20%
+                            </span>
+                        </div>
+                        <div class="px-2 py-2">
+                            <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
+                            <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                Áo khoác nam giữ nhiệt siêu ấm 2
+                            </h3>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
+                                <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
                             </div>
-                        </a>
-                    </div>
-                @endfor
+                            <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                        </div>
+                    </a>
+                </div>
+
+                {{-- Sản phẩm 3 --}}
+                <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                    <a href="#">
+                        <div class="relative">
+                            <img src="{{ asset('productsnam/nam3.jpg') }}"
+                                alt="Sản phẩm nam 3"
+                                class="w-full aspect-[3/4] object-cover">
+                            <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                -20%
+                            </span>
+                        </div>
+                        <div class="px-2 py-2">
+                            <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
+                            <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                Áo khoác nam giữ nhiệt siêu ấm 3
+                            </h3>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
+                                <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
+                            </div>
+                            <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                        </div>
+                    </a>
+                </div>
+
+                {{-- Sản phẩm 4 --}}
+                <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                    <a href="#">
+                        <div class="relative">
+                            <img src="{{ asset('productsnam/nam4.jpg') }}"
+                                alt="Sản phẩm nam 4"
+                                class="w-full aspect-[3/4] object-cover">
+                            <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                -20%
+                            </span>
+                        </div>
+                        <div class="px-2 py-2">
+                            <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
+                            <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                Áo khoác nam giữ nhiệt siêu ấm 4
+                            </h3>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
+                                <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
+                            </div>
+                            <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                        </div>
+                    </a>
+                </div>
+
+                {{-- Sản phẩm 5 --}}
+                <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                    <a href="#">
+                        <div class="relative">
+                            <img src="{{ asset('productsnam/nam5.jpg') }}"
+                                alt="Sản phẩm nam 5"
+                                class="w-full aspect-[3/4] object-cover">
+                            <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                -20%
+                            </span>
+                        </div>
+                        <div class="px-2 py-2">
+                            <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO PHAO NAM</p>
+                            <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                Áo khoác nam giữ nhiệt siêu ấm 5
+                            </h3>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="text-sm md:text-base font-bold text-red-600">599.000đ</span>
+                                <span class="text-[11px] text-gray-400 line-through">799.000đ</span>
+                            </div>
+                            <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
+
+    {{-- BANNER GIỮA NAM & NỮ --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                <img src="{{ asset('banner/men-women.jpg') }}"
+                     alt="Banner Nam - Nữ"
+                     class="w-full h-full object-cover max-h-[260px]">
+            </div>
+        </div>
+    </section>
+
 
     {{-- 3. BLOCK SẢN PHẨM NỮ --}}
     <section id="section-women" class="bg-white">

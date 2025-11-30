@@ -15,4 +15,5 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('cart', function () {return view('component.cart');})->name('cart.index');
 
