@@ -27,7 +27,7 @@
                     </button>
                     <a href="#" class="flex items-center justify-between">
                         <img src="/Logo/logo.png" class="h-8" alt="Yody Logo" />
-                        
+
                     </a>
                     <form action="#" method="GET" class="hidden md:block md:pl-2">
                         <label for="topbar-search" class="sr-only">Search</label>
@@ -382,8 +382,10 @@
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                         id="dropdown">
                         <div class="py-3 px-4">
-                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                            <span class="block text-sm text-gray-900 truncate dark:text-white">{{ Auth::user()->email }}</span>
+                            <span
+                                class="block text-sm font-semibold text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
+                            <span
+                                class="block text-sm text-gray-900 truncate dark:text-white">{{ Auth::user()->email }}</span>
                         </div>
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
@@ -459,7 +461,9 @@
         <aside
             class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 transform-none"
             aria-label="Sidenav" id="drawer-navigation">
-            <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+            <div
+                class="overflow-y-scroll [scrollbar-width:none] [-ms-overflow-style:none] 
+            [&::-webkit-scrollbar]:hidden py-5 px-3 h-full bg-white dark:bg-gray-800">
                 <form action="#" method="GET" class="md:hidden mb-2">
                     <label for="sidebar-search" class="sr-only">Search</label>
                     <div class="relative">
@@ -477,9 +481,10 @@
                     </div>
                 </form>
                 <ul class="space-y-2">
+                    {{-- Thong ke --}}
                     <li>
                         <a href="#"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            class="flex items-center p-2 text-base  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg aria-hidden="true"
                                 class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -489,9 +494,10 @@
                             <span class="ml-3">Thống kê</span>
                         </a>
                     </li>
+                    {{-- Quan li danh muc --}}
                     <li>
                         <a href="{{ route('categories.index') }}"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            class="flex items-center p-2 text-base  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                 viewBox="0 0 24 24">
@@ -502,9 +508,10 @@
                             <span class="ml-3">Danh mục</span>
                         </a>
                     </li>
+                    {{-- Quan li san pham --}}
                     <li>
                         <a href="{{ route('product.index') }}"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            class="flex items-center p-2 text-base  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                 viewBox="0 0 24 24">
@@ -517,9 +524,10 @@
                             <span class="ml-3">Sản phẩm</span>
                         </a>
                     </li>
+                    {{-- Quan li tai khoan --}}
                     <li>
                         <button type="button"
-                            class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center p-2 w-full text-base text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -538,22 +546,25 @@
                         </button>
                         <ul id="dropdown-pages" class="hidden py-2 space-y-2">
                             <li>
-                                <a href="{{route('acount.indexM')}}"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Quản trị viên</a>
+                                <a href="{{ route('acount.indexM') }}"
+                                    class="flex items-center p-2 pl-11 w-full text-base text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Quản
+                                    trị viên</a>
                             </li>
                             <li>
-                                <a href="{{route('acount.indexU')}}"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Khách hàng</a>
+                                <a href="{{ route('acount.indexU') }}"
+                                    class="flex items-center p-2 pl-11 w-full text-base text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Khách
+                                    hàng</a>
                             </li>
                             <li>
-                                <a href="{{route('acount.index')}}"
-                                    class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Admin</a>
+                                <a href="{{ route('acount.index') }}"
+                                    class="flex items-center p-2 pl-11 w-full text-base text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Admin</a>
                             </li>
                         </ul>
                     </li>
+                    {{-- Quan li voucher --}}
                     <li>
-                        <a href="{{route('voucher.index')}}"
-                            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="{{ route('voucher.index') }}"
+                            class="flex items-center p-2 text-base  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                 viewBox="0 0 24 24">
@@ -564,7 +575,22 @@
                             <span class="ml-3">Mã giảm giá</span>
                         </a>
                     </li>
-                    
+                    {{-- Quan li banner --}}
+                    <li>
+                        <a href="{{ route('banner.index') }}"
+                            class="flex items-center p-2 text-base  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M13 10a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H14a1 1 0 0 1-1-1Z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12c0 .556-.227 1.06-.593 1.422A.999.999 0 0 1 20.5 20H4a2.002 2.002 0 0 1-2-2V6Zm6.892 12 3.833-5.356-3.99-4.322a1 1 0 0 0-1.549.097L4 12.879V6h16v9.95l-3.257-3.619a1 1 0 0 0-1.557.088L11.2 18H8.892Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="ml-3">Banner</span>
+                        </a>
+                    </li>
                     <li>
                         <button type="button"
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"

@@ -7,6 +7,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <title>YODY Shop</title>
+
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -158,33 +159,61 @@
 
         {{-- BANNER LỚN --}}
         <section class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                <div class="relative overflow-hidden rounded-2xl">
-                    <img src="{{ asset('banner/main-banner.jpg') }}" alt=""
-                        class="w-full h-full object-cover max-h-[380px]">
-                    <div class="absolute inset-0 bg-black/25"></div>
-                    <div class="absolute inset-0 flex flex-col justify-center px-6 lg:px-10 text-white">
-                        <p class="text-xs lg:text-sm uppercase tracking-widest">
-                            BST THU ĐÔNG 2025
-                        </p>
-                        <h1 class="mt-2 text-2xl lg:text-4xl font-bold leading-snug">
-                            LOOK GOOD FEEL GOOD<br>
-                            Thời trang cho cả gia đình
-                        </h1>
-                        <p class="mt-3 text-xs lg:text-sm max-w-md">
-                            Áo phao, áo giữ nhiệt, áo gió… chất liệu cao cấp, giữ ấm tốt, thoải mái suốt mùa đông.
-                        </p>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="#section-men" class="px-4 py-2 bg-[#ff9b0d] rounded-full text-sm font-semibold">
-                                Mua sắm ngay
-                            </a>
-                            <a href="#section-collection"
-                                class="px-4 py-2 bg-white/90 text-gray-800 rounded-full text-sm font-semibold">
-                                Xem bộ sưu tập
-                            </a>
+
+
+            <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+                <!-- Carousel wrapper -->
+                <div class="relative h-56 overflow-hidden rounded-base md:h-96">
+                    @forelse($carouselBanners as $index => $bn)
+                        <div class="hiden duration-700 ease-in-out"
+                            data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
+                            <img src="{{ asset($bn->image) }}"
+                                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Banner {{ $index + 1 }}">
                         </div>
-                    </div>
+                    @empty
+                        <p>No banners</p>
+                    @endforelse
                 </div>
+                {{-- <!-- Slider indicators -->
+                <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+                    <button type="button" class="w-3 h-3 rounded-base" aria-current="true" aria-label="Slide 1"
+                        data-carousel-slide-to="0"></button>
+                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 2"
+                        data-carousel-slide-to="1"></button>
+                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 3"
+                        data-carousel-slide-to="2"></button>
+                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 4"
+                        data-carousel-slide-to="3"></button>
+                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 5"
+                        data-carousel-slide-to="4"></button>
+                </div> --}}
+                <!-- Slider controls -->
+                <!-- Nút Previous -->
+                <button type="button"
+                    class="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
+                    w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
+                    hover:bg-white/70 transition-all duration-300 cursor-pointer"
+                    data-carousel-prev>
+                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Nút Next -->
+                <button type="button"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
+                    w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
+                    hover:bg-white/70 transition-all duration-300 cursor-pointer"
+                    data-carousel-next>
+                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+            </div>
         </section>
 
         {{-- BLOCK SẢN PHẨM NAM --}}
@@ -217,8 +246,10 @@
                                         {{ $product->description }}
                                     </h3>
                                     <div class="mt-1 flex items-center gap-2">
-                                        <span class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
-                                        <span class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
+                                        <span
+                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
+                                        <span
+                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
                                     </div>
                                     <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
                                 </div>
@@ -233,8 +264,13 @@
         <section class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
                 <div class="relative overflow-hidden rounded-2xl">
-                    <img src="{{ asset('banner/1.jpg') }}" alt="Banner 1"
-                        class="w-full h-full object-cover max-h-[260px]">
+                    @forelse($banner1 as $bn)
+                        <img src="{{ asset($bn->image) }}" alt="Banner 1"
+                            class="w-full h-full object-cover max-h-[260px]">
+                    @empty
+                        <img src="#" alt="Banner 1" class="w-full h-full object-cover max-h-[260px]">
+                    @endforelse
+
                 </div>
             </div>
         </section>
@@ -283,56 +319,66 @@
         <section class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
                 <div class="relative overflow-hidden rounded-2xl">
-                    <img src="{{ asset('banner/2.jpg') }}" alt="Banner 2"
-                        class="w-full h-full object-cover max-h-[260px]">
+                    @forelse($banner2 as $bn)
+                        <img src="{{ asset($bn->image) }}" alt="Banner 2"
+                            class="w-full h-full object-cover max-h-[260px]">
+                    @empty
+                        <img src="#" alt="Banner 2" class="w-full h-full object-cover max-h-[260px]">
+                    @endforelse
+
                 </div>
             </div>
         </section>
 
         {{-- BLOCK TRẺ EM --}}
-            <section id="section-kids" class="bg-white">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
-                        <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                    </div>
-
-                    <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                                <a href="#">
-                                    <div class="relative">
-                                        <img src="{{ asset('products/kids_' . $i . '.jpg') }}"
-                                            alt="Sản phẩm trẻ em {{ $i }}"
-                                            class="w-full aspect-[3/4] object-cover">
-                                    </div>
-                                    <div class="px-2 py-2">
-                                        <p class="text-[11px] text-gray-500 uppercase mb-1">YODY KIDS</p>
-                                        <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                            Áo phao bé trai/bé gái ấm áp {{ $i }}
-                                        </h3>
-                                        <div class="mt-1 flex items-center gap-2">
-                                            <span class="text-sm md:text-base font-bold text-red-600">499.000đ</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endfor
-                    </div>
+        <section id="section-kids" class="bg-white">
+            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
+                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
                 </div>
-            </section>
 
-        {{-- BANNER 3 --}} 
-        <section class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                    <div class="relative overflow-hidden rounded-2xl">
-                        <img src="{{ asset('banner/3.jpg') }}" alt="Banner 3"
-                            class="w-full h-full object-cover max-h-[260px]">
-                    </div>
+                <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                            <a href="#">
+                                <div class="relative">
+                                    <img src="{{ asset('products/kids_' . $i . '.jpg') }}"
+                                        alt="Sản phẩm trẻ em {{ $i }}"
+                                        class="w-full aspect-[3/4] object-cover">
+                                </div>
+                                <div class="px-2 py-2">
+                                    <p class="text-[11px] text-gray-500 uppercase mb-1">YODY KIDS</p>
+                                    <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                        Áo phao bé trai/bé gái ấm áp {{ $i }}
+                                    </h3>
+                                    <div class="mt-1 flex items-center gap-2">
+                                        <span class="text-sm md:text-base font-bold text-red-600">499.000đ</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endfor
+                </div>
             </div>
         </section>
 
-         {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
+        {{-- BANNER 3 --}}
+        <section class="bg-white">
+            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+                <div class="relative overflow-hidden rounded-2xl">
+                    @forelse($banner3 as $bn)
+                        <img src="{{ asset($bn->image) }}" alt="Banner 3"
+                            class="w-full h-full object-cover max-h-[260px]">
+                    @empty
+                        <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
+                    @endforelse
+
+                </div>
+            </div>
+        </section>
+
+        {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
         <section id="section-collection" class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
                 <div class="grid md:grid-cols-2 gap-4 items-center">
@@ -352,7 +398,7 @@
                                 class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
                                 Xem bộ sưu tập
                             </a>
-                    </div>
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <img src="{{ asset('collection/family1.jpg') }}"
@@ -365,96 +411,98 @@
 
         {{-- 6. BLOG / TIN TỨC --}}
         <section class="bg-gray-50">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
-                        <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                    </div>
-
-                    <div class="grid md:grid-cols-3 gap-4">
-                        @for ($i = 1; $i <= 3; $i++)
-                            <article class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-sm">
-                                <a href="#">
-                                    <img src="{{ asset('blog/blog_' . $i . '.jpg') }}"
-                                        alt="Bài viết {{ $i }}" class="w-full h-40 object-cover">
-                                    <div class="p-3">
-                                        <p class="text-[11px] text-gray-400 uppercase mb-1">Mẹo mặc đẹp</p>
-                                        <h3 class="text-sm md:text-base font-semibold line-clamp-2">
-                                            10+ cách phối đồ giữ ấm mà vẫn thời trang mùa đông {{ $i }}
-                                        </h3>
-                                        <p class="mt-1 text-xs text-gray-500 line-clamp-2">
-                                            Gợi ý phối áo phao, áo giữ nhiệt, quần jean... giúp bạn tự tin xuống phố những
-                                            ngày lạnh.
-                                        </p>
-                                        <p class="mt-2 text-[11px] text-gray-400">Ngày đăng: 24/11/2025</p>
-                                    </div>
-                                </a>
-                            </article>
-                        @endfor
-                    </div>
+            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
+                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
                 </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    @for ($i = 1; $i <= 3; $i++)
+                        <article class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-sm">
+                            <a href="#">
+                                <img src="{{ asset('blog/blog_' . $i . '.jpg') }}"
+                                    alt="Bài viết {{ $i }}" class="w-full h-40 object-cover">
+                                <div class="p-3">
+                                    <p class="text-[11px] text-gray-400 uppercase mb-1">Mẹo mặc đẹp</p>
+                                    <h3 class="text-sm md:text-base font-semibold line-clamp-2">
+                                        10+ cách phối đồ giữ ấm mà vẫn thời trang mùa đông {{ $i }}
+                                    </h3>
+                                    <p class="mt-1 text-xs text-gray-500 line-clamp-2">
+                                        Gợi ý phối áo phao, áo giữ nhiệt, quần jean... giúp bạn tự tin xuống phố những
+                                        ngày lạnh.
+                                    </p>
+                                    <p class="mt-2 text-[11px] text-gray-400">Ngày đăng: 24/11/2025</p>
+                                </div>
+                            </a>
+                        </article>
+                    @endfor
+                </div>
+            </div>
         </section>
 
     </main>
 
 
-        {{-- FOOTER YODY STYLE --}}
-        <footer class="bg-white mt-10 border-t border-gray-200">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
-                    <div>
-                        <h3 class="font-semibold mb-2">VỀ YODY</h3>
-                        <ul class="space-y-1 text-gray-600">
-                            <li><a href="#" class="hover:underline">Giới thiệu</a></li>
-                            <li><a href="#" class="hover:underline">Tuyển dụng</a></li>
-                            <li><a href="#" class="hover:underline">Hệ thống cửa hàng</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold mb-2">HỖ TRỢ KHÁCH HÀNG</h3>
-                        <ul class="space-y-1 text-gray-600">
-                            <li><a href="#" class="hover:underline">Chính sách đổi trả</a></li>
-                            <li><a href="#" class="hover:underline">Chính sách vận chuyển</a></li>
-                            <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold mb-2">LIÊN HỆ</h3>
-                        <ul class="space-y-1 text-gray-600">
-                            <li>Hotline: 1800 2086</li>
-                            <li>Email: care@yody.vn</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold mb-2">KẾT NỐI VỚI YODY</h3>
-                        <div class="flex space-x-3">
-                            <a href="#"
-                                class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">f</a>
-                            <a href="#"
-                                class="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs">IG</a>
-                            <a href="#"
-                                class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-xs">YT</a>
-                        </div>
-                    </div>
+    {{-- FOOTER YODY STYLE --}}
+    <footer class="bg-white mt-10 border-t border-gray-200">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
+                <div>
+                    <h3 class="font-semibold mb-2">VỀ YODY</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><a href="#" class="hover:underline">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:underline">Tuyển dụng</a></li>
+                        <li><a href="#" class="hover:underline">Hệ thống cửa hàng</a></li>
+                    </ul>
                 </div>
-
-                <div class="mt-6 border-t border-gray-200 pt-4 text-xs text-gray-500 flex flex-wrap justify-between">
-                    <span>© {{ date('Y') }} YODY. All Rights Reserved.</span>
+                <div>
+                    <h3 class="font-semibold mb-2">HỖ TRỢ KHÁCH HÀNG</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><a href="#" class="hover:underline">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:underline">Chính sách vận chuyển</a></li>
+                        <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">LIÊN HỆ</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li>Hotline: 1800 2086</li>
+                        <li>Email: care@yody.vn</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">KẾT NỐI VỚI YODY</h3>
+                    <div class="flex space-x-3">
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">f</a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs">IG</a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-xs">YT</a>
+                    </div>
                 </div>
             </div>
-        </footer>
 
-        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+            <div class="mt-6 border-t border-gray-200 pt-4 text-xs text-gray-500 flex flex-wrap justify-between">
+                <span>© {{ date('Y') }} YODY. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
 
-        <script>
-            const btnSearchMobile = document.getElementById('toggle-search-mobile');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (btnSearchMobile && mobileMenu) {
-                btnSearchMobile.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        </script>
-    </body>
+    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
 
-    </html>
+    <script>
+        const btnSearchMobile = document.getElementById('toggle-search-mobile');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (btnSearchMobile && mobileMenu) {
+            btnSearchMobile.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>

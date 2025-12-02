@@ -119,15 +119,15 @@ class DatabaseSeeder extends Seeder
         // Danh mục
         DB::table('categories')->insert([
             [
-                'name' => 'Áo quần',
-                'decription' => 'Tất cả các loại áo quần cho nam và nữ.',
-                'slug' => Str::slug('Áo quần'),
-                'image' => 'ao-quan.jpg',
+                'name' => 'Áo nam',
+                'decription' => 'Tất cả các loại áo quần cho nam.',
+                'slug' => Str::slug('Áo nam'),
+                'image' => 'ao-nam.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Phụ kiện',
+                'name' => 'Áo nữ',
                 'decription' => 'Túi, mũ, thắt lưng và các phụ kiện khác.',
                 'slug' => Str::slug('Phụ kiện'),
                 'image' => 'phu-kien.jpg',
