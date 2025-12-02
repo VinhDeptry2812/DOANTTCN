@@ -337,10 +337,13 @@
                     của YODY.
                 </p>
 
-                <button
-                    class="mt-4 w-full py-3 rounded-full bg-[#ff9b0d] hover:bg-[#f79400] text-white font-semibold text-sm uppercase tracking-wide">
-                    Tiến hành đặt hàng
-                </button>
+                <a href="{{ route('checkout.index') }}">
+                    <button
+                        class="mt-4 w-full py-3 rounded-full bg-[#ff9b0d] hover:bg-[#f79400] text-white font-semibold text-sm uppercase tracking-wide"
+                        type="button">
+                        Tiến hành đặt hàng
+                    </button>
+                </a>
 
                 <a href="{{ url('/') }}"
                    class="mt-2 block text-center text-xs text-gray-500 hover:underline">
