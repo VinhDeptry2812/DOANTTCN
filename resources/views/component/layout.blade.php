@@ -171,10 +171,10 @@
         </nav>
     </header>
 
-{{-- MAIN CONTENT: code luôn, KHÔNG thanh danh mục --}}
+    {{-- MAIN CONTENT--}}
     <main class="pt-15">
 
-    {{-- 1. HERO BANNER LỚN --}}
+    {{-- 1. BANNER LỚN --}}
     <section class="bg-white">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="relative overflow-hidden rounded-2xl">
@@ -345,12 +345,12 @@
         </div>
     </section>
 
-    {{-- BANNER GIỮA NAM & NỮ --}}
+    {{-- BANNER 1 --}}
     <section class="bg-white">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
             <div class="relative overflow-hidden rounded-2xl">
-                <img src="{{ asset('banner/men-women.jpg') }}"
-                     alt="Banner Nam - Nữ"
+                <img src="{{ asset('banner/1.jpg') }}"
+                     alt="Banner 1"
                      class="w-full h-full object-cover max-h-[260px]">
             </div>
         </div>
@@ -395,6 +395,17 @@
         </div>
     </section>
 
+    {{-- BANNER 2 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                <img src="{{ asset('banner/2.jpg') }}"
+                     alt="Banner 2"
+                     class="w-full h-full object-cover max-h-[260px]">
+            </div>
+        </div>
+    </section>
+
     {{-- 4. BLOCK TRẺ EM --}}
     <section id="section-kids" class="bg-white">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
@@ -424,6 +435,17 @@
                         </a>
                     </div>
                 @endfor
+            </div>
+        </div>
+    </section>
+
+    {{-- BANNER 3 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                <img src="{{ asset('banner/3.jpg') }}"
+                     alt="Banner 3"
+                     class="w-full h-full object-cover max-h-[260px]">
             </div>
         </div>
     </section>
