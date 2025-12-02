@@ -152,10 +152,11 @@
             </div>
         </nav>
     </header>
+
     {{-- MAIN CONTENT --}}
     <main class="pt-15">
 
-        {{-- 1. BANNER LỚN --}}
+        {{-- BANNER LỚN --}}
         <section class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
                 <div class="relative overflow-hidden rounded-2xl">
@@ -167,7 +168,7 @@
                             BST THU ĐÔNG 2025
                         </p>
                         <h1 class="mt-2 text-2xl lg:text-4xl font-bold leading-snug">
-                            LOOK GOOD – FEEL GOOD<br>
+                            LOOK GOOD FEEL GOOD<br>
                             Thời trang cho cả gia đình
                         </h1>
                         <p class="mt-3 text-xs lg:text-sm max-w-md">
@@ -186,7 +187,7 @@
                 </div>
         </section>
 
-        {{-- 2. BLOCK SẢN PHẨM NAM --}}
+        {{-- BLOCK SẢN PHẨM NAM --}}
         <section id="section-men" class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
                 <div class="flex justify-between items-center mb-3">
@@ -196,7 +197,7 @@
 
                 <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
 
-                   @forelse($products as $product)
+                    @forelse($products as $product)
                         <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
                             <a href="#">
                                 <div class="relative">
@@ -213,18 +214,19 @@
                                 <div class="px-2 py-2">
                                     <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
                                     <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        {{ $product->decription }}
+                                        {{ $product->description }}
                                     </h3>
                                     <div class="mt-1 flex items-center gap-2">
-                                        <span
-                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
-                                        <span
-                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
+                                        <span class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
+                                        <span class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
                                     </div>
                                     <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
-
                                 </div>
+                            </a>
                         </div>
+                    @empty
+                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                    @endforelse
         </section>
 
         {{-- BANNER 1 --}}
@@ -238,7 +240,7 @@
         </section>
 
 
-        {{-- 3. BLOCK SẢN PHẨM NỮ --}}
+        {{-- BLOCK SẢN PHẨM NỮ --}}
         <section id="section-women" class="bg-white">
             <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
                 <div class="flex justify-between items-center mb-3">
@@ -287,129 +289,7 @@
             </div>
         </section>
 
-        {{-- 4. BLOCK TRẺ EM --}}
-        <section id="section-kids" class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
-                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                </div>
-
-                <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                    @for ($i = 1; $i <= 5; $i++)
-                        <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                            <a href="#">
-                                <div class="relative">
-                                    <img src="{{ asset('products/kids_' . $i . '.jpg') }}"
-                                        alt="Sản phẩm trẻ em {{ $i }}"
-                                        class="w-full aspect-[3/4] object-cover">
-                                </div>
-                                <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">YODY KIDS</p>
-                                    <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        Áo phao bé trai/bé gái ấm áp {{ $i }}
-                                    </h3>
-                                    <div class="mt-1 flex items-center gap-2">
-                                        <span class="text-sm md:text-base font-bold text-red-600">499.000đ</span>
-                                        >>>>>>> f1395e7625ee304990be804688e8268af4ae4f7a
-                                    </div>
-                            </a>
-                        </div>
-                        @empty
-                        @endforelse
-
-                        <<<<<<< HEAD======={{-- BANNER 3 --}} <section class="bg-white">
-                            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                                <div class="relative overflow-hidden rounded-2xl">
-                                    <img src="{{ asset('banner/3.jpg') }}" alt="Banner 3"
-                                        class="w-full h-full object-cover max-h-[260px]">
-                                </div>
-                            </div>
-            </section>
-
-            {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
-            <section id="section-collection" class="bg-white">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                    <div class="grid md:grid-cols-2 gap-4 items-center">
-                        <div>
-                            <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
-                            <p class="mt-3 text-sm text-gray-600">
-                                Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
-                                chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
-                            </p>
-                            <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                                <li>• Chất liệu co giãn thoải mái</li>
-                                <li>• Bảng size đầy đủ cho cả gia đình</li>
-                                <li>• Màu sắc tươi sáng, trẻ trung</li>
-                            </ul>
-                            <div class="mt-4">
-                                <a href="#"
-                                    class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
-                                    Xem bộ sưu tập
-                                </a>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <img src="{{ asset('collection/family1.jpg') }}"
-                                class="rounded-2xl w-full h-full object-cover" alt="">
-                            <img src="{{ asset('collection/family2.jpg') }}"
-                                class="rounded-2xl w-full h-full object-cover" alt="">
-                            >>>>>>> f1395e7625ee304990be804688e8268af4ae4f7a
-                        </div>
-                    </div>
-            </section>
-
-            {{-- BANNER GIỮA NAM & NỮ --}}
-            <section class="bg-white">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                    <div class="relative overflow-hidden rounded-2xl">
-                        <img src="{{ asset('banner/men-women.jpg') }}" alt="Banner Nam - Nữ"
-                            class="w-full h-full object-cover max-h-[260px]">
-                    </div>
-                </div>
-            </section>
-
-
-            {{-- 3. BLOCK SẢN PHẨM NỮ --}}
-            <section id="section-women" class="bg-white">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-lg md:text-xl font-bold uppercase">Nữ</h2>
-                        <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                    </div>
-
-                    <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                                <a href="#">
-                                    <div class="relative">
-                                        <img src="{{ asset('products/nu_' . $i . '.jpg') }}"
-                                            alt="Sản phẩm nữ {{ $i }}"
-                                            class="w-full aspect-[3/4] object-cover">
-                                        <span
-                                            class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                            -30%
-                                        </span>
-                                    </div>
-                                    <div class="px-2 py-2">
-                                        <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO KHOÁC NỮ</p>
-                                        <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                            Áo khoác nữ dáng dài thời thượng {{ $i }}
-                                        </h3>
-                                        <div class="mt-1 flex items-center gap-2">
-                                            <span class="text-sm md:text-base font-bold text-red-600">699.000đ</span>
-                                            <span class="text-[11px] text-gray-400 line-through">999.000đ</span>
-                                        </div>
-                                        <p class="mt-1 text-[11px] text-green-600">Giảm thêm 5% cho HĐ thành viên</p>
-                                    </div>
-                                </a>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </section>
-
-            {{-- 4. BLOCK TRẺ EM --}}
+        {{-- BLOCK TRẺ EM --}}
             <section id="section-kids" class="bg-white">
                 <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
                     <div class="flex justify-between items-center mb-3">
@@ -442,40 +322,49 @@
                 </div>
             </section>
 
-            {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
-            <section id="section-collection" class="bg-white">
-                <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                    <div class="grid md:grid-cols-2 gap-4 items-center">
-                        <div>
-                            <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
-                            <p class="mt-3 text-sm text-gray-600">
-                                Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
-                                chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
-                            </p>
-                            <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                                <li>• Chất liệu co giãn thoải mái</li>
-                                <li>• Bảng size đầy đủ cho cả gia đình</li>
-                                <li>• Màu sắc tươi sáng, trẻ trung</li>
-                            </ul>
-                            <div class="mt-4">
-                                <a href="#"
-                                    class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
-                                    Xem bộ sưu tập
-                                </a>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <img src="{{ asset('collection/family1.jpg') }}"
-                                class="rounded-2xl w-full h-full object-cover" alt="">
-                            <img src="{{ asset('collection/family2.jpg') }}"
-                                class="rounded-2xl w-full h-full object-cover" alt="">
-                        </div>
+        {{-- BANNER 3 --}} 
+        <section class="bg-white">
+            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+                    <div class="relative overflow-hidden rounded-2xl">
+                        <img src="{{ asset('banner/3.jpg') }}" alt="Banner 3"
+                            class="w-full h-full object-cover max-h-[260px]">
+                    </div>
+            </div>
+        </section>
+
+         {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
+        <section id="section-collection" class="bg-white">
+            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+                <div class="grid md:grid-cols-2 gap-4 items-center">
+                    <div>
+                        <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
+                        <p class="mt-3 text-sm text-gray-600">
+                            Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
+                            chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
+                        </p>
+                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                            <li>• Chất liệu co giãn thoải mái</li>
+                            <li>• Bảng size đầy đủ cho cả gia đình</li>
+                            <li>• Màu sắc tươi sáng, trẻ trung</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="#"
+                                class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
+                                Xem bộ sưu tập
+                            </a>
+                    </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <img src="{{ asset('collection/family1.jpg') }}"
+                            class="rounded-2xl w-full h-full object-cover" alt="">
+                        <img src="{{ asset('collection/family2.jpg') }}"
+                            class="rounded-2xl w-full h-full object-cover" alt="">
                     </div>
                 </div>
-            </section>
+        </section>
 
-            {{-- 6. BLOG / TIN TỨC --}}
-            <section class="bg-gray-50">
+        {{-- 6. BLOG / TIN TỨC --}}
+        <section class="bg-gray-50">
                 <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
                     <div class="flex justify-between items-center mb-3">
                         <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
@@ -504,9 +393,9 @@
                         @endfor
                     </div>
                 </div>
-            </section>
+        </section>
 
-        </main>
+    </main>
 
 
         {{-- FOOTER YODY STYLE --}}

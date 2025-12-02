@@ -88,7 +88,7 @@
                         <div class="sm:col-span-2">
                             <div class="mt-2">
                                 @if ($product->image)
-                                    <img src="{{ asset($product->image), $oldImage = $product->image }}"
+                                    <img src="{{ asset($product->image) && $oldImage = $product->image }}"
                                         alt="Current Image" class="w-24 h-24 object-cover rounded-lg border" />
                                 @else
                                     <p class="text-gray-500 text-sm">Chưa có hình ảnh</p>
