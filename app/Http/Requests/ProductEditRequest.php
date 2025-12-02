@@ -27,6 +27,7 @@ class ProductEditRequest extends FormRequest
             'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
             'stock' => 'numeric|nullable',
             'price' => 'required|numeric',
+            'discount_price' => 'numeric',
         ];
     }
 }

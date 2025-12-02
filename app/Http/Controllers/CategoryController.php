@@ -7,6 +7,8 @@ use App\Http\Requests\EditCategoryRequest;
 use App\Http\Requests\StoraCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 class CategoryController extends Controller
 {
@@ -54,29 +56,35 @@ class CategoryController extends Controller
 
     public function update($id, EditCategoryRequest $request)
     {
-        $imagePath = null;
         $category = Category::findOrFail($id);
-        // Chỉ xử lý ảnh khi có file được upload
+
+        
+
+        // Xử lý upload ảnh mới
         if ($request->hasFile('image')) {
-            $this->delateImage($id);
+            // Xóa ảnh cũ nếu còn
+            if ($category->image && file_exists(public_path('uploads/category/' . $category->image))) {
+                unlink(public_path('uploads/category/' . $category->image));
+            }
 
             $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension(); // tạo tên file duy nhất
-            $file->move(public_path('uploads/category'), $filename); // lưu vào public/category
-            $imagePath = $filename; // đường dẫn để lưu vào DB
-        } else {
-            $imagePath = $category->image;
-            // Giữ lại ảnh cũ
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/category'), $filename);
+
+            $category->image = $filename; // cập nhật ảnh mới
         }
 
+        // Cập nhật các field khác
         $category->update([
             'name' => $request->get('name'),
             'decription' => $request->get('decription'),
-            'image' => $imagePath,
             'slug' => Str::slug($request->name),
+            // 'image' => đã set trực tiếp ở trên
         ]);
-        return redirect()->route('categories.index')->with('success', 'Update danh muc thanh cong!');
+
+        return redirect()->route('categories.index')->with('success', 'Update danh mục thành công!');
     }
+
 
 
 

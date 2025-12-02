@@ -6,15 +6,17 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductEditRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    
+
 
     public function index()
     {
-        $products = Product::with('category')->paginate(5); // load category luôn, 5 sản phẩm 1 trang
+        $products = Product::with(['category', 'images'])->paginate(5); // load category luôn, 5 sản phẩm 1 trang
+
         return view('admin.products.index', compact('products'));
     }
 
@@ -26,24 +28,70 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $imagePath = null;
-        // Chỉ xử lý ảnh khi có file được upload
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension(); // tạo tên file duy nhất
-            $file->move(public_path('uploads/products'), $filename); // lưu vào public/uploads/products
-            $imagePath = $filename; // đường dẫn để lưu vào DB
-        }
 
-        Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'decription' => $request->decription,
-            'image' => $imagePath,
             'slug' => Str::slug($request->name),
             'stock' => $request->stock,
             'price' => $request->price,
             'category_id' => $request->category_id,
+            'discount_price' => $request->discount_price,
         ]);
+
+
+
+        // Lưu ảnh
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            $fileName = uniqid() . '-' . $file->getClientOriginalName();
+            $destination = public_path('uploads/products');
+
+            // Tự tạo folder nếu chưa có
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+
+            // Lưu vào bảng images
+            $product->image = 'uploads/products/' . $fileName;
+
+
+            $file->move($destination, $fileName);
+            $product->save();
+        }
+
+        // Lưu gallery 
+        if ($request->hasFile('gallery')) {
+
+            $galleryFiles = $request->file('gallery');
+
+            // Đảm bảo gallery là array
+            if (!is_array($galleryFiles)) {
+                $galleryFiles = [$galleryFiles];
+            }
+
+            foreach ($galleryFiles as $img) {
+                if ($img->isValid()) {
+                    $fileName = uniqid() . '-' . $img->getClientOriginalName();
+                    $destination = public_path('uploads/products/gallery');
+
+                    if (!is_dir($destination)) {
+                        mkdir($destination, 0777, true);
+                    }
+
+                    $product->images()->create([
+                        'url_image' => 'uploads/products/gallery/' . $fileName,
+                    ]);
+
+                    $img->move($destination, $fileName);
+                }
+            }
+        }
+
+
+
+
 
         return redirect()->route('product.index')->with('success', 'Them san pham thanh cong!');
     }
@@ -57,60 +105,115 @@ class ProductController extends Controller
 
     public function update($id, ProductEditRequest $request)
     {
-
-        $imagePath = null;
         $product = Product::findOrFail($id);
-        // Chỉ xử lý ảnh khi có file được upload
-        if ($request->hasFile('image')) {
-            $this->delateImage($id);
 
+        // Lưu ảnh
+        if ($request->hasFile('image')) {
+            //Xoa anh
+            $this->delateImage($id);
             $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension(); // tạo tên file duy nhất
-            $file->move(public_path('uploads/products'), $filename); // lưu vào public/uploads
-            $imagePath = $filename; // đường dẫn để lưu vào DB
-        } else {
-            $imagePath = $product->image;
-            // Giữ lại ảnh cũ
+
+            $fileName = uniqid() . '-' . $file->getClientOriginalName();
+            $destination = public_path('uploads/products');
+
+            // Tự tạo folder nếu chưa có
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+
+            // Lưu vào bảng images
+            $product->image = 'uploads/products/' . $fileName;
+
+
+            $file->move($destination, $fileName);
+            $product->save();
+        }
+
+        // Lưu gallery 
+        if ($request->hasFile('gallery')) {
+            //Xoa gallery
+            $this->delateGallery($id);
+            $galleryFiles = $request->file('gallery');
+
+            // Đảm bảo gallery là array
+            if (!is_array($galleryFiles)) {
+                $galleryFiles = [$galleryFiles];
+            }
+
+            foreach ($galleryFiles as $img) {
+                if ($img->isValid()) {
+                    $fileName = uniqid() . '-' . $img->getClientOriginalName();
+                    $destination = public_path('uploads/products/gallery');
+
+                    if (!is_dir($destination)) {
+                        mkdir($destination, 0777, true);
+                    }
+
+                    $product->images()->create([
+                        'url_image' => 'uploads/products/gallery/' . $fileName,
+                    ]);
+
+                    $img->move($destination, $fileName);
+                }
+            }
         }
 
 
-
-
         $product->update([
-            'name' => $request->get('name'),
-            'decription' => $request->get('decription'),
-            'image' => $imagePath,
-            'stock' => $request->get('stock'),
-            'price' => $request->get('price'),
-            'category_id' => $request->get('category_id'),
+            'name' => $request->name,
+            'decription' => $request->decription,
+            'slug' => Str::slug($request->name),
+            'stock' => $request->stock,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'discount_price' => $request->discount_price,
         ]);
         return redirect()->route('product.index')->with('success', 'Update san pham thanh cong!');
     }
 
-    
+
 
     public function delete($id)
     {
 
         //Xoa anh
         $this->delateImage($id);
+        //Xoa gallery
+        $this->delateGallery($id);
 
         $product = Product::findOrFail($id);
         $product->delete();
         return back()->with('success', 'Xoa san pham thanh cong');
     }
-    
+
     //Xóa ảnh
     public function delateImage($id)
     {
         $product = Product::findOrFail($id);
-        $old_path = public_path('uploads/products/' . $product->image);
-        if (!empty($product->image) && file_exists($old_path) && !is_dir($old_path)) {
+
+        // Đường dẫn trong DB đã bao gồm 'uploads/products/...'
+        $old_path = public_path($product->image);
+
+        if ($product->image && file_exists($old_path) && !is_dir($old_path)) {
             unlink($old_path);
         }
-
-        //if kiểm tra ảnh hiện tại có rỗng không, đường dẫn có không, 
-        //và đảm bảo đường dẫn đó không phải thư mục thì xóa tránh lỗi
     }
-    
+
+    //Xóa gallery
+    public function delateGallery($id)
+    {
+        $product = Product::findOrFail($id);
+
+        if ($product->images && $product->images->count() > 0) {
+            foreach ($product->images as $img) {
+                $old_path = public_path($img->url_image);
+
+                if (file_exists($old_path) && !is_dir($old_path)) {
+                    unlink($old_path); // xóa file vật lý
+                }
+
+                $img->delete(); // xóa record DB
+            }
+        }
+    }
 }

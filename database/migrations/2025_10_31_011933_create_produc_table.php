@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('slug')->unique;
             $table->string('decription')->nullable();
             $table->decimal('price', 10, 2);
-            $table->decimal('discout_price', 10, 2)->nullable()->default(0);
+            $table->decimal('discount_price', 10, 2)->nullable()->default(0);
             $table->integer('stock')->default(0);
             $table->string('sku')->nullable()->unique();
-            $table->unsignedBigInteger('category_id');
             $table->string('image')->nullable();
-            $table->text('gallery')->nullable();
+            $table->unsignedBigInteger('category_id');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

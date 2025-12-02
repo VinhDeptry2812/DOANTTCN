@@ -122,18 +122,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto p-4">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-4 py-3">ID</th>
                                 <th scope="col" class="px-4 py-3">Image</th>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Danh mục</th>
                                 <th scope="col" class="px-4 py-3">Giá</th>
                                 <th scope="col" class="px-4 py-3">Tồn kho</th>
                                 <th scope="col" class="px-4 py-3">Trạng thái</th>
-                                <th scope="col" class="px-4 py-3">Decription</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
@@ -142,19 +140,19 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr class="border-b dark:border-gray-700">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $product->id }}</th>
+
                                     <td class="px-4 py-3">
-                                        <img class="w-16 h-16 object-cover rounded"
-                                            src="{{ asset('uploads/products/' . $product->image) }}"
-                                            alt="Product Image" />
+                                        @if ($product->image)
+                                            <img class="w-16 h-16 object-cover rounded"
+                                                src="{{ asset($product->image) }}"
+                                                alt="Product Image" />
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3"> {{ $product->name }}</td>
                                     <td class="px-4 py-3">
                                         {{ $product->category_id ? $product->category->name : 'Chưa có' }}</td>
                                     <td class="px-4 py-3"> {{ $product->price }}</td>
-                                    <td class="px-4 py-3"> 
+                                    <td class="px-4 py-3">
                                         {{ $product->stock }}</td>
                                     <td class="px-4 py-3">
                                         @if ($product->status == 0)
@@ -165,26 +163,70 @@
                                             <span class="text-green-600 font-medium">Còn hàng</span>
                                         @endif
                                     </td>
-                                    
-                                    <td class="px-4 py-3 max-w-xs truncate"> {{ $product->decription }}</td>
 
 
-                                    <td class="px-4 py-3 flex gap-2">
-                                        <a href="{{ route('product.edit', ['id' => $product->id]) }}"
-                                            class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded">
-                                            Edit
-                                        </a>
+                                    <td x-data="{ open: false }" class="relative">
+                                        <svg @click="open = !open"
+                                            class="w-6 h-6 text-gray-800 dark:text-white hover:text-blue-600 hover:scale-110 transition-all cursor-pointer"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                                d="M5 7h14M5 12h14M5 17h10" />
+                                        </svg>
 
-                                        <form action="{{ route('product.delete', ['id' => $product->id]) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button onclick="return confirm('Xóa sản phẩm này?')"
-                                                class="text-white bg-red-700 hover:bg-red-800 px-4 py-2 rounded">
-                                                Delete
-                                            </button>
-                                        </form>
+                                        <!-- Button group -->
+                                        <div x-show="open" @click.outside="open = false"
+                                            class="absolute right-[47px] bottom-10  items-center gap-2 p-2 bg-white rounded-tl-lg rounded-tr-lg rounded-bl-lg shadow-sm">
+                                            <!-- Xem -->
+                                            <a href="#"
+                                                class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-sky-600 hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-300"
+                                                aria-label="Xem">
+                                                <!-- icon (eye) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                                Xem
+                                            </a>
+
+                                            <!-- Sửa -->
+                                            <a href="{{ route('product.edit', ['id' => $product->id]) }}"
+                                                class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-amber-600 hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                                aria-label="Sửa">
+                                                <!-- icon (pencil) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5h6M4 21l7-7 3 3 7-7" />
+                                                </svg>
+                                                Sửa
+                                            </a>
+
+                                            <!-- Xóa -->
+                                            <form action="{{ route('product.delete', ['id' => $product->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button onclick="return confirm('Xóa danh mục này?')"
+                                                    class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        aria-hidden="true">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M19 7L5 7M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12" />
+                                                    </svg>
+                                                    Xóa
+                                                </button>
+                                            </form>
+                                        </div>
+
                                     </td>
+
+
 
                                 </tr>
 
