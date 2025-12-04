@@ -226,7 +226,7 @@
 
                 <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
 
-                    @forelse($products as $product)
+                    @forelse($products_nam as $product)
                         <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
                             <a href="#">
                                 <div class="relative">
@@ -285,32 +285,38 @@
                 </div>
 
                 <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                    @for ($i = 1; $i <= 5; $i++)
+                    @forelse($products_nu as $product)
                         <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
                             <a href="#">
                                 <div class="relative">
-                                    <img src="{{ asset('products/nu_' . $i . '.jpg') }}"
-                                        alt="Sản phẩm nữ {{ $i }}"
-                                        class="w-full aspect-[3/4] object-cover">
+                                    @if ($product->image)
+                                        <img class="w-full aspect-[3/4] object-cover"
+                                            src="{{ asset($product->image) }}" alt="Product Image" />
+                                    @endif
+
                                     <span
                                         class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                        -30%
+                                        -20%
                                     </span>
                                 </div>
                                 <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">ÁO KHOÁC NỮ</p>
+                                    <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
                                     <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        Áo khoác nữ dáng dài thời thượng {{ $i }}
+                                        {{ $product->description }}
                                     </h3>
                                     <div class="mt-1 flex items-center gap-2">
-                                        <span class="text-sm md:text-base font-bold text-red-600">699.000đ</span>
-                                        <span class="text-[11px] text-gray-400 line-through">999.000đ</span>
+                                        <span
+                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
+                                        <span
+                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
                                     </div>
-                                    <p class="mt-1 text-[11px] text-green-600">Giảm thêm 5% cho HĐ thành viên</p>
+                                    <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
                                 </div>
                             </a>
                         </div>
-                    @endfor
+                    @empty
+                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -339,26 +345,38 @@
                 </div>
 
                 <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                    @for ($i = 1; $i <= 5; $i++)
+                    @forelse($products_treem as $product)
                         <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
                             <a href="#">
                                 <div class="relative">
-                                    <img src="{{ asset('products/kids_' . $i . '.jpg') }}"
-                                        alt="Sản phẩm trẻ em {{ $i }}"
-                                        class="w-full aspect-[3/4] object-cover">
+                                    @if ($product->image)
+                                        <img class="w-full aspect-[3/4] object-cover"
+                                            src="{{ asset($product->image) }}" alt="Product Image" />
+                                    @endif
+
+                                    <span
+                                        class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                        -20%
+                                    </span>
                                 </div>
                                 <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">YODY KIDS</p>
+                                    <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
                                     <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        Áo phao bé trai/bé gái ấm áp {{ $i }}
+                                        {{ $product->description }}
                                     </h3>
                                     <div class="mt-1 flex items-center gap-2">
-                                        <span class="text-sm md:text-base font-bold text-red-600">499.000đ</span>
+                                        <span
+                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
+                                        <span
+                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
                                     </div>
+                                    <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
                                 </div>
                             </a>
                         </div>
-                    @endfor
+                    @empty
+                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                    @endforelse
                 </div>
             </div>
         </section>

@@ -24,7 +24,6 @@ class BannerRequest extends FormRequest
     {
         return [
             'position' => [
-                'required',
                 'string',
                 function ($attribute, $value, $fail) {
                     if ($value !== 'header-top') {
@@ -35,8 +34,6 @@ class BannerRequest extends FormRequest
                     }
                 }
             ],
-            'image' => ['required', 'image'],
-            'status' => ['required', 'boolean'],
         ];
     }
 }

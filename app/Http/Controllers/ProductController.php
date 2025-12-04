@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductEditRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use Illuminate\Support\Str;
 
@@ -98,14 +99,15 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
         $categories = Category::all();
+        $product = Product::with('images')->findOrFail($id);
+
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update($id, ProductEditRequest $request)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
 
         // Lưu ảnh
         if ($request->hasFile('image')) {
@@ -129,10 +131,29 @@ class ProductController extends Controller
             $product->save();
         }
 
+        // Xử lí xóa ảnh cũ gallery
+        if ($request->has('old_gallery')) {
+            foreach ($request->delete_old_images as $imageId) {
+
+                $img = ProductImage::find($imageId);
+
+                if ($img) {
+                    // xóa khỏi storage
+                    if (file_exists(public_path($img->url_image))) {
+                        unlink(public_path($img->url_image));
+                    }
+
+                    // xóa database
+                    $img->delete();
+                }
+            }
+        }
+
+
         // Lưu gallery 
         if ($request->hasFile('gallery')) {
             //Xoa gallery
-            $this->delateGallery($id);
+            // $this->delateGallery($id);
             $galleryFiles = $request->file('gallery');
 
             // Đảm bảo gallery là array

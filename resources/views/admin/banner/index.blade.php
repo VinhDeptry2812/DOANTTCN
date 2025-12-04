@@ -173,7 +173,7 @@
                                             </a>
 
                                             <!-- Sửa -->
-                                            <a href="#"
+                                            <a href="{{route('banner.edit',['id'=> $bn->id])}}"
                                                 class="block px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 dark:hover:bg-gray-600">
                                                 Sửa
                                             </a>

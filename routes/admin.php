@@ -53,7 +53,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->controller(BannerControll
     Route::get('/banner', 'index')->name('index'); // banner.index 
     Route::get('/banner/create', 'create')->name('create');
     Route::post('/banner/store', 'store')->name('store');
-    // Route::get('/{id}','edit')->name('edit');
-    // Route::put('/{id}','update')->name('update');
+    Route::get('/banner/edit/{id}','edit')->name('edit');
+    Route::put('/banner/update/{id}','update')->name('update');
     Route::delete('/banner/delete/{id}','delete')->name('delete');
 });

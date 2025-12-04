@@ -18,7 +18,6 @@
                             <option value="middle-1">Middle-1</option>
                             <option value="middle-2">Middle-2</option>
                             <option value="middle-3">Middle-3</option>
-                            <option value="middle-4">Middle-4</option>
                         </select>
                         @error('position')
                             <p class="text-red-500 text-sm">{{ $message }}</p>

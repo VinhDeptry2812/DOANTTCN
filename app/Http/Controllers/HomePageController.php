@@ -10,17 +10,32 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['category','images'])
-                    ->orderBy('id', 'asc')
-                    ->take(5)
-                    ->get();
+        $products_nam = Product::with(['category', 'images'])
+            ->whereHas('category', function ($q) {
+                $q->where('id', 1);
+            })
+            ->take(5)
+            ->get();
+        $products_nu = Product::with(['category', 'images'])
+            ->whereHas('category', function ($q) {
+                $q->where('id', 2);
+            })
+            ->take(5)
+            ->get();
+        $products_treem = Product::with(['category', 'images'])
+            ->whereHas('category', function ($q) {
+                $q->where('id', 3);
+            })
+            ->take(5)
+            ->get();
+
+
 
         $carouselBanners = Banner::where('position', 'header-top')->where('status', 1)->get();
 
-        $banner1 = Banner::where('position', 'middle-1')->where('status',1)->get();
-        $banner2 = Banner::where('position', 'middle-2')->where('status',1)->get();
-        $banner3 = Banner::where('position', 'middle-3')->where('status',1)->get();
-        return view('component.layout', compact('products','carouselBanners','banner1','banner2','banner3',));
+        $banner1 = Banner::where('position', 'middle-1')->where('status', 1)->get();
+        $banner2 = Banner::where('position', 'middle-2')->where('status', 1)->get();
+        $banner3 = Banner::where('position', 'middle-3')->where('status', 1)->get();
+        return view('component.layout', compact('products_nam','products_nu','products_treem', 'carouselBanners', 'banner1', 'banner2', 'banner3',));
     }
-
 }

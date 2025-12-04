@@ -119,42 +119,23 @@ class DatabaseSeeder extends Seeder
         // Danh mục
         DB::table('categories')->insert([
             [
-                'name' => 'Áo nam',
+                'name' => 'Nam',
                 'decription' => 'Tất cả các loại áo quần cho nam.',
                 'slug' => Str::slug('Áo nam'),
-                'image' => 'ao-nam.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Áo nữ',
-                'decription' => 'Túi, mũ, thắt lưng và các phụ kiện khác.',
-                'slug' => Str::slug('Phụ kiện'),
-                'image' => 'phu-kien.jpg',
+                'name' => 'Nữ',
+                'decription' => 'Tất cả các loại áo quần cho nữ',
+                'slug' => Str::slug('Áo nữ'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Giày dép',
+                'name' => 'Trẻ em',
                 'decription' => 'Bộ sưu tập giày dép cho nam và nữ.',
-                'slug' => Str::slug('Giày dép'),
-                'image' => 'giay-dep.jpg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Túi xách',
-                'decription' => 'Các loại túi xách đa dạng.',
-                'slug' => Str::slug('Túi xách'),
-                'image' => 'tui-xach.jpg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Điện tử',
-                'decription' => 'Các thiết bị và đồ điện tử.',
-                'slug' => Str::slug('Điện tử'),
-                'image' => 'dien-tu.jpg',
+                'slug' => Str::slug('Trẻ em'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -171,14 +152,6 @@ class DatabaseSeeder extends Seeder
             ['category_id' => 2, 'name' => 'Vòng tay thời trang', 'slug' => Str::slug('Vòng tay thời trang'), 'decription' => 'Vòng tay phong cách trẻ trung', 'price' => 79000, 'discount_price' => 59000, 'stock' => 80, 'sku' => 'VT001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
             ['category_id' => 3, 'name' => 'Giày thể thao nam', 'slug' => Str::slug('Giày thể thao nam'), 'decription' => 'Giày thể thao êm, chống trơn trượt', 'price' => 499000, 'discount_price' => 399000, 'stock' => 30, 'sku' => 'GTN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
             ['category_id' => 3, 'name' => 'Giày cao gót nữ', 'slug' => Str::slug('Giày cao gót nữ'), 'decription' => 'Giày cao gót nữ, sang trọng', 'price' => 599000, 'discount_price' => 499000, 'stock' => 20, 'sku' => 'GGN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 3, 'name' => 'Dép lê nam', 'slug' => Str::slug('Dép lê nam'), 'decription' => 'Dép lê nam, êm chân', 'price' => 129000, 'discount_price' => 99000, 'stock' => 50, 'sku' => 'DLN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 4, 'name' => 'Túi xách nữ', 'slug' => Str::slug('Túi xách nữ'), 'decription' => 'Túi xách nữ nhiều ngăn tiện lợi', 'price' => 549000, 'discount_price' => 499000, 'stock' => 15, 'sku' => 'TXN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 4, 'name' => 'Balo học sinh', 'slug' => Str::slug('Balo học sinh'), 'decription' => 'Balo chất liệu bền, thiết kế trẻ trung', 'price' => 349000, 'discount_price' => 299000, 'stock' => 25, 'sku' => 'BHS001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 4, 'name' => 'Túi đeo chéo', 'slug' => Str::slug('Túi đeo chéo'), 'decription' => 'Túi đeo chéo tiện lợi, thời trang', 'price' => 299000, 'discount_price' => 249000, 'stock' => 20, 'sku' => 'TDC001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 1, 'name' => 'Áo khoác nam', 'slug' => Str::slug('Áo khoác nam'), 'decription' => 'Áo khoác nam ấm áp, thời trang', 'price' => 399000, 'discount_price' => 349000, 'stock' => 20, 'sku' => 'AKN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 1, 'name' => 'Áo khoác nữ', 'slug' => Str::slug('Áo khoác nữ'), 'decription' => 'Áo khoác nữ thanh lịch, phong cách', 'price' => 499000, 'discount_price' => 449000, 'stock' => 25, 'sku' => 'AKN002', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 3, 'name' => 'Giày sandal nữ', 'slug' => Str::slug('Giày sandal nữ'), 'decription' => 'Sandal nữ đi mùa hè, thoải mái', 'price' => 229000, 'discount_price' => 199000, 'stock' => 30, 'sku' => 'GSN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 2, 'name' => 'Mũ len nữ', 'slug' => Str::slug('Mũ len nữ'), 'decription' => 'Mũ len thời trang, giữ ấm', 'price' => 129000, 'discount_price' => 99000, 'stock' => 40, 'sku' => 'MLN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
         ]);
 
 

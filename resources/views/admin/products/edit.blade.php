@@ -84,69 +84,109 @@
                     </div>
 
                     {{-- Anh chinh --}}
-                    <div class="sm:col-span-1">
-                        <div class="sm:col-span-2">
-                            <div class="mt-2">
+                    <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ảnh Chính</span>
+                    <div class="flex items-center sm:col-span-4 justify-center w-full">
+                        <label for="dropzone-file"
+                            class="relative flex items-center justify-center w-full h-64 bg-neutral-secondary-medium border border-dashed border-default-strong rounded-base cursor-pointer hover:bg-neutral-tertiary-medium overflow-hidden">
+                            <!-- Nội dung mặc định -->
+                            <div id="dropzone-preview"
+                                class="flex flex-col items-center justify-center text-body pt-5 pb-6 absolute inset-0">
                                 @if ($product->image)
-                                    <img src="{{ asset($product->image) && $oldImage = $product->image }}"
-                                        alt="Current Image" class="w-24 h-24 object-cover rounded-lg border" />
+                                    {{-- Hiển thị ảnh cũ  --}}
+                                    <img src="{{ asset($product->image) }}"
+                                        class="absolute inset-0 w-full h-full object-contain bg-white" />
+                                
                                 @else
-                                    <p class="text-gray-500 text-sm">Chưa có hình ảnh</p>
+                                    <svg class="w-8 h-8 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" fill="none" viewBox="0 0 24 24" id="dropzone-icon">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2" />
+                                    </svg>
+                                    <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 @endif
                             </div>
-                        </div>
-                        <label class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
-                            for="file_input">Ảnh chính</label>
-                        <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="file_input" name="image" type="file">
 
-                        @error('image')
-                            <p class="text-red-500 text-sm">{{ $message }}</p>
-                        @enderror
-
-
-
+                            <input id="dropzone-file" type="file" name ="image" class="hidden" accept="image/*" />
+                        </label>
                     </div>
-                    {{-- Anh gallery --}}
+                    
+
+                    {{-- Gallery --}}
                     <div class="sm:col-span-4">
-                        <div class="sm:col-span-2">
-                            <div class="mt-2 flex">
-                                @if ($product->images && $product->images->count() > 0)
-                                    @foreach ($product->images as $img)
-                                        <img src="{{ asset($img->url_image) }}" alt="Gallery Image"
-                                            class="w-24 h-24 object-cover rounded-lg border ml-2" />
-                                    @endforeach
-                                @else
-                                    <p class="text-gray-500 text-sm">Chưa có hình ảnh</p>
-                                @endif
-                            </div>
-                        </div>
-                        <label class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
-                            for="file_inputl">Các ảnh phụ</label>
-                        <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="file_inputl" name="gallery[]" type="file" multiple>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Các ảnh phụ
+                        </label>
 
-                        @error('gallery[]')
+                        {{-- VÙNG HIỂN THỊ ẢNH + DROPZONE --}}
+                        <div id="gallery-wrapper" class="flex flex-wrap gap-4">
+
+                            {{-- ẢNH GALLERY CŨ --}}
+                            @if ($product->images && $product->images->count() > 0)
+                                @foreach ($product->images as $img)
+                                    <div
+                                        class="dropzone-item w-28 h-36 relative bg-neutral-secondary-medium border border-dashed 
+                                        border-default-strong rounded-base flex justify-center items-center overflow-hidden">
+
+                                        <img src="{{ asset($img->url_image) }}"
+                                            class="absolute inset-0 w-full h-full object-contain">
+
+                                        {{-- NÚT XÓA --}}
+                                        <button type="button"
+                                            class="delete-old absolute top-1 right-1  text-white w-6 h-6 cursor-pointer rounded-full 
+                                            flex items-center justify-center text-xs"
+                                            data-id="{{ $img->id }}">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+
+                                        </button>
+
+                                        {{-- input hidden để gửi id ảnh cần xoá --}}
+                                        <input type="hidden" name="old_gallery[]" class="delete-input" disabled
+                                            value="{{ $img->id }}">
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            {{-- DROPZONE MỚI MẶC ĐỊNH --}}
+                            <div
+                                class="dropzone-item w-28 h-36 relative bg-neutral-secondary-medium border border-dashed 
+                                border-default-strong rounded-base flex justify-center items-center cursor-pointer overflow-hidden">
+
+                                <input type="file" name="new_gallery[]" class="gallery-input hidden" accept="image/*">
+
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center text-center px-2 pointer-events-none">
+                                    <svg class="w-8 h-8 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M12 19V10m0 0l-2 2m2-2 2 2m-9 3h3a3 3 0 010-6h.025a5.5 5.5 0 1110.975.5H17a3 3 0 010 6h-2" />
+                                    </svg>
+                                    <p class="text-xs">Thêm ảnh</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        @error('gallery.*')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
-
-
-
                     </div>
 
-                </div>
-                <button type="submit"
-                    class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                    Update Product
-                </button>
 
-                <a href="{{ route('product.index') }}"
-                    class="text-red-600 hover:cursor-pointer inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-
-                    Back
-                </a>
+                    <button type="submit"
+                        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Update Product
+                    </button>
             </form>
         </div>
     </section>
