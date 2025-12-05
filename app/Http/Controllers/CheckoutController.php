@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutRequest;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\View\Component;
 
 class CheckoutController extends Controller
 {
@@ -18,18 +22,57 @@ class CheckoutController extends Controller
         return view('component.checkout', compact('cartItems', 'subtotal'));
     }
 
-    public function process(Request $request)
+    public function placeOrder(CheckoutRequest $request)
     {
-        $cartItems = session('cart', []);
+       
+        $cart = session('cart', []);
 
-        if (count($cartItems) == 0) {
-            return redirect()->route('cart.index')->with('error', 'Giỏ hàng trống!');
+        if (empty($cart)) {
+            return back()->with('error', 'Giỏ hàng trống bé ơi!');
         }
 
-        // Xử lý đơn hàng: lưu vào DB, gửi email, thanh toán, ...
-        // Ví dụ tạm: xóa session giỏ hàng sau khi đặt
+        // Tính tổng
+        $total = collect($cart)->sum(function ($item) {
+            $price = $item['discount_price'] ?? $item['price'] ?? 0;
+            return $price * $item['quantity'];
+        });
+
+        // Tạo đơn
+        $order = Order::create([
+            'code' => 'DH' . time(),
+            'customer_name' => $request->name,
+            'customer_phone' => $request->phone,
+            'customer_email' => $request->email,
+            'customer_address' => $request->address,
+            'total_price' => $total,
+            'status' => 'pending',
+            'decription' => $request->decription,
+        ]);
+
+        
+        // Lưu chi tiết đơn
+        foreach ($cart as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item['id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['discount_price'] ?? $item['price']
+            ]);
+        }
+
+        
+
+        // Xóa giỏ
         session()->forget('cart');
 
-        return redirect()->route('homepage')->with('success', 'Đặt hàng thành công!');
+        return redirect()->route('checkout.list')->with('success', 'Đặt hàng thành công bé iu!');
     }
+
+    public function list(){
+
+
+        return view('component.ordersuccess');
+
+    }
+
 }

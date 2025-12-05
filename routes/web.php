@@ -5,7 +5,7 @@ use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-
+use App\Http\Controllers\OrderController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 
@@ -28,4 +28,7 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+Route::post('/ordersuccess', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+
+Route::get('/ordercomplete', [CheckoutController::class, 'list'])->name('checkout.list');

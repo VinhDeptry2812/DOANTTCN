@@ -37,7 +37,7 @@
                 {{-- Thông tin thanh toán --}}
                 <div class="bg-white rounded-xl p-4 shadow-sm">
                     <h2 class="font-semibold mb-4">Thông tin người nhận</h2>
-                    <form action="{{ route('checkout.process') }}" method="POST">
+                    <form action="{{ route('checkout.placeOrder') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="block text-sm font-medium mb-1">Họ và tên</label>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="block text-sm font-medium mb-1">Ghi chú (tùy chọn)</label>
-                            <textarea name="note" class="w-full border rounded px-3 py-2" rows="2"></textarea>
+                            <textarea name="decription" class="w-full border rounded px-3 py-2" rows="2"></textarea>
                         </div>
 
                         <button type="submit"

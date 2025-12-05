@@ -4,6 +4,7 @@ use App\Http\Controllers\AcountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
@@ -57,3 +58,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->controller(BannerControll
     Route::put('/banner/update/{id}','update')->name('update');
     Route::delete('/banner/delete/{id}','delete')->name('delete');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->controller(OrderController::class)->name('order.')->group(function () {
+    Route::get('/order/index', 'index')->name('index'); // order.index 
+    Route::get('/orders/{id}','show')->name('show');
+    // Route::post('/banner/store', 'store')->name('store');
+    // Route::get('/banner/edit/{id}','edit')->name('edit');
+    // Route::put('/banner/update/{id}','update')->name('update');
+    // Route::delete('/banner/delete/{id}','delete')->name('delete');
+});
+
+
