@@ -83,6 +83,7 @@
                             <span>Xin chào,</span>
                             <span class="font-semibold">{{ Auth::user()->name }}</span>
                         </div>
+
                         <form action="{{ route('logout') }}" method="POST" class="hidden md:inline-block">
                             @csrf
                             <button type="submit"
@@ -90,6 +91,8 @@
                                 Đăng xuất
                             </button>
                         </form>
+
+
                     @endauth
 
                     {{-- Cart icon --}}
@@ -113,10 +116,15 @@
                             {{-- Dropdown --}}
                             <div
                                 class="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
-                                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-100">
+                                <a href="{{route('acount.info')}}" class="block px-3 py-2 text-sm hover:bg-gray-100">
                                     👤 Tài khoản
                                 </a>
-
+                                @if (Auth::user()->role == 'admin')
+                                    <a href="{{ route('admin.dashboard') }}"
+                                        class="block px-3 py-2 text-sm hover:bg-gray-100">
+                                        🏠 Dashboard
+                                    </a>
+                                @endif
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100">
@@ -126,6 +134,7 @@
                             </div>
                         </div>
                     @endguest
+
 
 
                     {{-- Mobile menu button --}}

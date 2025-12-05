@@ -16,11 +16,11 @@
             </div>
 
             <h1 class="text-3xl font-semibold text-gray-900 mb-2">
-                Order Placed Successfully!
+                Đặt hàng thành công!
             </h1>
 
             <p class="text-gray-600">
-                Thank you for your purchase. Your order has been received and is now being processed.
+                Cảm ơn bạn đã thanh toán. Đơn hàng của bạn đang được tiếp nhận và xử lí.
             </p>
         </div>
 
@@ -31,23 +31,23 @@
             <div class="space-y-3 text-gray-700">
                 <p class="flex justify-between text-sm">
                     <span class="text-gray-500">Order ID:</span>
-                    <span class="font-medium text-gray-900">#FWB127364372</span>
+                    <span class="font-medium text-gray-900">{{$order->code}}</span>
                 </p>
 
                 <p class="flex justify-between text-sm">
-                    <span class="text-gray-500">Customer:</span>
-                    <span class="font-medium">Nguyen Van A</span>
+                    <span class="text-gray-500">Khách hàng:</span>
+                    <span class="font-medium">$order->name</span>
                 </p>
 
                 <p class="flex justify-between text-sm">
-                    <span class="text-gray-500">Total:</span>
-                    <span class="font-semibold text-green-600">$129.99</span>
+                    <span class="text-gray-500">Tổng:</span>
+                    <span class="font-semibold text-green-600">{{format_price($order->price)}}</span>
                 </p>
 
                 <p class="flex justify-between text-sm">
-                    <span class="text-gray-500">Payment Status:</span>
+                    <span class="text-gray-500">Trạng thái thanh toán:</span>
                     <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                        Paid
+                        Đã thanh toán
                     </span>
                 </p>
             </div>
@@ -57,12 +57,12 @@
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/orders"
                 class="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black transition shadow-sm">
-                View All Orders
+                Xem các đơn hàng
             </a>
 
             <a href="{{route('homepage')}}"
                 class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                Continue Shopping
+                Tiếp tục mua sắm
             </a>
         </div>
 

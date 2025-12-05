@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AcountInfoRequest;
 use App\Http\Requests\AcountRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
-
 
 class AcountController extends Controller
 {
     public function index()
     {
-        $acounts = User::where('role','admin')->get();
+        $acounts = User::where('role', 'admin')->get();
         return view('admin.acount.indexAdmin', compact('acounts'));
     }
 
     public function indexU()
     {
-        $acounts = User::where('role','user')->get();
+        $acounts = User::where('role', 'user')->get();
         return view('admin.acount.indexUser', compact('acounts'));
     }
 
     public function indexM()
     {
-        $acounts = User::where('role','manager')->get();
+        $acounts = User::where('role', 'manager')->get();
         return view('admin.acount.index', compact('acounts'));
     }
 
@@ -37,7 +37,7 @@ class AcountController extends Controller
 
     public function update(AcountRequest $request, $id)
     {
-        
+
 
         // Không cho tự đổi role chính mình (tránh tự khoá acc luôn)
         if ($id == Auth::id()) {
@@ -60,5 +60,27 @@ class AcountController extends Controller
             'sucssec',
             'Xóa user thành công!'
         );
+    }
+
+    public function acount_info()
+    {
+
+        return view('component.acountpage');
+    }
+
+    public function update_info(AcountInfoRequest $request)
+    {
+        $user = Auth::user();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
     }
 }

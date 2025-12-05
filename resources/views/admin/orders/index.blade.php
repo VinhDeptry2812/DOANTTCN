@@ -87,9 +87,9 @@
 
                                 <div x-show="open" @click.outside="open=false" x-transition
                                     class="absolute top-[-30px] left-[-50px] -translate-x-1/2 mt-1 w-36 bg-white dark:bg-gray-700 rounded-md shadow-lg z-10">
-                                    <a href="#"
+                                    <a href="{{route('order.show',['id'=>$order->id])}}"
                                         class="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-600">View</a>
-                                    <a href="#"
+                                    <a href="{{route('order.edit',['id'=>$order->id])}}"
                                         class="block px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 dark:hover:bg-gray-600">Edit</a>
                                     
                                 </div>

@@ -65,13 +65,14 @@ class CheckoutController extends Controller
         // Xóa giỏ
         session()->forget('cart');
 
-        return redirect()->route('checkout.list')->with('success', 'Đặt hàng thành công bé iu!');
+        return redirect()->route('checkout.list',['id'=>$$order->id])->with('success', 'Đặt hàng thành công bé iu!');
     }
 
-    public function list(){
+    public function list($id){
+        $order = Order::findOrFail($id);
 
 
-        return view('component.ordersuccess');
+        return view('component.ordersuccess',compact('order'));
 
     }
 

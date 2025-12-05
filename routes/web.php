@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\AcountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ForgotPassWordController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 
@@ -32,3 +33,9 @@ Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.ind
 Route::post('/ordersuccess', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
 
 Route::get('/ordercomplete', [CheckoutController::class, 'list'])->name('checkout.list');
+
+Route::get('/acount_info', [AcountController::class, 'acount_info'])->name('acount.info');
+
+Route::put('/acount_info/update', [AcountController::class, 'update_info'])->name('acount.update_info');
+
+
