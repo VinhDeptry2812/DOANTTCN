@@ -95,21 +95,38 @@
                     {{-- Cart icon --}}
                     <a href="{{ route('cart.index') }}" class="relative p-2 rounded-full bg-white/70 hover:bg-white">
                         🛒
-                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5">
-                            0
-                        </span>
                     </a>
 
-                    {{-- Login / Account icon --}}
+                    {{-- Login / Account --}}
                     @guest
-                        <a href="{{ route('login') }}" class="p-2 rounded-full bg-white/70 hover:bg-white">
+                        <a href="{{ route('login') }}"
+                            class="p-2 rounded-full bg-white/70 hover:bg-white flex items-center justify-center w-10 h-10">
                             👤
                         </a>
                     @else
-                        <a href="#" class="p-2 rounded-full bg-white/70 hover:bg-white" title="Tài khoản">
-                            {{ Str::substr(Auth::user()->name, 0, 1) }}
-                        </a>
+                        <div class="relative group">
+                            <button
+                                class="w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center font-bold text-[#f9a602]">
+                                {{ strtoupper(Str::substr(Auth::user()->name, 0, 1)) }}
+                            </button>
+
+                            {{-- Dropdown --}}
+                            <div
+                                class="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+                                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-100">
+                                    👤 Tài khoản
+                                </a>
+
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100">
+                                        🚪 Đăng xuất
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     @endguest
+
 
                     {{-- Mobile menu button --}}
                     <button data-collapse-toggle="mobile-menu" type="button"

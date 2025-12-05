@@ -9,14 +9,20 @@ class CheckoutController extends Controller
     public function index()
     {
         $cartItems = session('cart', []);
-        return view('component.checkout', compact('cartItems'));
+        // Tính tạm tính
+        $subtotal = collect($cartItems)->sum(function ($item) {
+            $price = $item['discount_price'] ?? $item['price'] ?? 0;
+            return $price * $item['quantity'];
+        });
+
+        return view('component.checkout', compact('cartItems', 'subtotal'));
     }
 
     public function process(Request $request)
     {
         $cartItems = session('cart', []);
 
-        if(count($cartItems) == 0) {
+        if (count($cartItems) == 0) {
             return redirect()->route('cart.index')->with('error', 'Giỏ hàng trống!');
         }
 

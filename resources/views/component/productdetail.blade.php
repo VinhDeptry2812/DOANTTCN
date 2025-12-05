@@ -150,12 +150,14 @@
                             class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition text-gray-600 font-medium">
                             +
                         </button>
+                        <input type="hidden" id="selectedQty" value="1">
+
                     </div>
                 </div>
 
                 <!-- Add to Cart Button -->
-                <button
-                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 rounded text-lg transition">
+                <button data-id="{{ $product_info->id }}"
+                    class="add-to-cart w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 rounded text-lg transition">
                     Thêm vào giỏ
                 </button>
 
@@ -168,8 +170,8 @@
 
                     <div class="space-y-3 text-sm">
                         <div class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
                             </svg>
@@ -295,17 +297,45 @@
         }
 
         function increaseQty() {
-            const input = document.getElementById('quantity');
-            input.value = parseInt(input.value) + 1;
+            let q = parseInt(document.getElementById("quantity").value);
+            q++;
+            document.getElementById("quantity").value = q;
+            document.getElementById("selectedQty").value = q;
         }
 
         function decreaseQty() {
-            const input = document.getElementById('quantity');
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-            }
+            let q = parseInt(document.getElementById("quantity").value);
+            if (q > 1) q--;
+            document.getElementById("quantity").value = q;
+            document.getElementById("selectedQty").value = q;
         }
     </script>
+
+    {{-- Script them gio hang --}}
+    <script>
+        document.querySelector('.add-to-cart').addEventListener('click', function() {
+            let id = this.dataset.id; // lấy id từ nút
+
+            fetch("{{ route('cart.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        id: id,
+                        quantity: document.getElementById("selectedQty").value
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Đã thêm vào giỏ!");
+                });
+        });
+    </script>
+
+
+
 
 
 
