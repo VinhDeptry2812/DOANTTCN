@@ -9,6 +9,8 @@ use App\Http\Controllers\CheckoutController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 
+Route::get('/product/{id}', [HomePageController::class, 'productdetail'])->name('productdetail');
+
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'postRegister'])->name('postRegister');
 

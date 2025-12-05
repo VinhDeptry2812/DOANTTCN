@@ -29,7 +29,6 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-
         $product = Product::create([
             'name' => $request->name,
             'decription' => $request->decription,
@@ -63,9 +62,9 @@ class ProductController extends Controller
         }
 
         // Lưu gallery 
-        if ($request->hasFile('gallery')) {
+        if ($request->hasFile('new_gallery')) {
 
-            $galleryFiles = $request->file('gallery');
+            $galleryFiles = $request->file('new_gallery');
 
             // Đảm bảo gallery là array
             if (!is_array($galleryFiles)) {
@@ -130,36 +129,24 @@ class ProductController extends Controller
             $file->move($destination, $fileName);
             $product->save();
         }
+        
+        // Xóa những ảnh cũ mà user bỏ chọn
+        $oldImages = $product->images; // tất cả ảnh hiện tại
 
-        // Xử lí xóa ảnh cũ gallery
-        if ($request->has('old_gallery')) {
-            foreach ($request->delete_old_images as $imageId) {
-
-                $img = ProductImage::find($imageId);
-
-                if ($img) {
-                    // xóa khỏi storage
-                    if (file_exists(public_path($img->url_image))) {
-                        unlink(public_path($img->url_image));
-                    }
-
-                    // xóa database
-                    $img->delete();
+        $keepIds = $request->old_gallery ?? []; // những ảnh user vẫn muốn giữ
+        foreach ($oldImages as $img) {
+            if (!in_array($img->id, $keepIds)) {
+                if (file_exists(public_path($img->url_image))) {
+                    unlink(public_path($img->url_image));
                 }
+                $img->delete();
             }
         }
 
 
-        // Lưu gallery 
-        if ($request->hasFile('gallery')) {
-            //Xoa gallery
-            // $this->delateGallery($id);
-            $galleryFiles = $request->file('gallery');
-
-            // Đảm bảo gallery là array
-            if (!is_array($galleryFiles)) {
-                $galleryFiles = [$galleryFiles];
-            }
+        // Lưu gallery mới
+        if ($request->hasFile('new_gallery')) {
+            $galleryFiles = $request->file('new_gallery');
 
             foreach ($galleryFiles as $img) {
                 if ($img->isValid()) {
@@ -178,7 +165,6 @@ class ProductController extends Controller
                 }
             }
         }
-
 
         $product->update([
             'name' => $request->name,

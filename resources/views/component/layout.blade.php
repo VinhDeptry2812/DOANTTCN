@@ -1,526 +1,303 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-    <title>YODY Shop</title>
-
-</head>
-
-<body class="bg-gray-100 text-gray-800">
-    {{-- HEADER YODY STYLE --}}
-    <header class="shadow-sm bg-[#f9d800]">
-
-        {{-- MAIN NAV --}}
-        <nav class="fixed top-0 left-0 w-full z-50 bg-[#f9d800] shadow-sm px-4 lg:px-10 py-3">
-            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                {{-- LOGO --}}
-                <a href="{{ url('/') }}" class="flex items-center">
-                    <img src="{{ asset('logo/Screenshot_2025-11-23_184019-removebg-preview.png') }}" alt="YODY Logo"
-                        class="h-10 w-auto object-contain">
-                    <b class="ml-1">YODY</b>
-                </a>
-
-                {{-- SEARCH (PC) --}}
-                <form action="#" method="GET"
-                    class="hidden lg:flex flex-1 mx-8 max-w-xl bg-white rounded-full overflow-hidden border border-yellow-300">
-                    <input type="text" name="q" class="flex-1 px-4 py-2 text-sm focus:outline-none"
-                        placeholder="Tìm sản phẩm: áo polo, quần jean, váy, phụ kiện...">
-                    <button type="submit" class="px-4 py-2 text-sm font-semibold bg-[#ff9b0d] text-white">
-                        Tìm kiếm
-                    </button>
-                </form>
-
-                {{-- RIGHT ACTIONS --}}
-                <div class="flex items-center space-x-3 lg:space-x-6 lg:order-2">
-                    {{-- Search icon mobile --}}
-                    <button class="lg:hidden p-2 rounded-full bg-white/70 hover:bg-white" id="toggle-search-mobile">
-                        🔍
-                    </button>
-
-                    {{-- Auth text buttons (PC) --}}
-                    @guest
-                        <a href="{{ route('login') }}" class="hidden md:inline-block text-sm font-medium hover:underline">
-                            Đăng nhập
-                        </a>
-                        <a href="{{ route('register') }}"
-                            class="hidden md:inline-block text-sm font-medium px-3 py-1 rounded-full border border-white hover:bg-white/90 hover:text-[#f9a602] transition">
-                            Đăng ký
-                        </a>
-                    @endguest
-
-                    @auth
-                        <div class="hidden md:flex flex-col text-xs text-right">
-                            <span>Xin chào,</span>
-                            <span class="font-semibold">{{ Auth::user()->name }}</span>
-                        </div>
-                        <form action="{{ route('logout') }}" method="POST" class="hidden md:inline-block">
-                            @csrf
-                            <button type="submit"
-                                class="text-xs px-3 py-1 rounded-full border border-white hover:bg-red-600 hover:border-red-600 text-white transition">
-                                Đăng xuất
-                            </button>
-                        </form>
-                    @endauth
-
-                    {{-- Cart icon --}}
-                    <a href="{{ route('cart.index') }}" class="relative p-2 rounded-full bg-white/70 hover:bg-white">
-                        🛒
-                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5">
-                            0
-                        </span>
-                    </a>
-
-                    {{-- Login / Account icon --}}
-                    @guest
-                        <a href="{{ route('login') }}" class="p-2 rounded-full bg-white/70 hover:bg-white">
-                            👤
-                        </a>
-                    @else
-                        <a href="#" class="p-2 rounded-full bg-white/70 hover:bg-white" title="Tài khoản">
-                            {{ Str::substr(Auth::user()->name, 0, 1) }}
-                        </a>
-                    @endguest
-
-                    {{-- Mobile menu button --}}
-                    <button data-collapse-toggle="mobile-menu" type="button"
-                        class="inline-flex items-center p-2 text-sm rounded-lg lg:hidden hover:bg-white/80 focus:outline-none"
-                        aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Mở menu</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                {{-- MENU DESKTOP --}}
-                <div class="hidden lg:flex w-full mt-3 lg:mt-0 lg:w-auto lg:order-1">
-                    <ul class="flex flex-wrap items-center text-sm font-semibold uppercase">
-                        <li class="mr-6">
-                            <a href="#section-men" class="hover:underline underline-offset-4">Nam</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-women" class="hover:underline underline-offset-4">Nữ</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-kids" class="hover:underline underline-offset-4">Trẻ em</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-collection" class="hover:underline underline-offset-4">Bộ sưu tập</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#" class="hover:underline underline-offset-4">Sale</a>
-                        </li>
-                    </ul>
-                </div>
-
-                {{-- MENU MOBILE --}}
-                <div class="hidden w-full lg:hidden mt-2" id="mobile-menu">
-                    <form action="#" method="GET" class="mb-2">
-                        <div class="flex bg-white rounded-full overflow-hidden border border-yellow-300">
-                            <input type="text" name="q" class="flex-1 px-4 py-2 text-sm focus:outline-none"
-                                placeholder="Tìm kiếm sản phẩm...">
-                            <button type="submit" class="px-4 py-2 text-sm font-semibold bg-[#ff9b0d] text-white">
-                                Tìm
-                            </button>
-                        </div>
-                    </form>
-
-                    <ul class="flex flex-col text-sm font-semibold uppercase bg-[#f9d800] rounded-b-md overflow-hidden">
-                        <li>
-                            <a href="#section-men" class="block px-4 py-2 border-t border-yellow-300">Nam</a>
-                        </li>
-                        <li>
-                            <a href="#section-women" class="block px-4 py-2 border-t border-yellow-300">Nữ</a>
-                        </li>
-                        <li>
-                            <a href="#section-kids" class="block px-4 py-2 border-t border-yellow-300">Trẻ em</a>
-                        </li>
-                        <li>
-                            <a href="#section-collection" class="block px-4 py-2 border-t border-yellow-300">Bộ sưu
-                                tập</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 border-t border-yellow-300">Sale</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    {{-- MAIN CONTENT --}}
-    <main class="pt-15">
-
-        {{-- BANNER LỚN --}}
-        <section class="bg-white">
-
-
-            <div id="indicators-carousel" class="relative w-full" data-carousel="static">
-                <!-- Carousel wrapper -->
-                <div class="relative h-56 overflow-hidden rounded-base md:h-96">
-                    @forelse($carouselBanners as $index => $bn)
-                        <div class="hiden duration-700 ease-in-out"
-                            data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
-                            <img src="{{ asset($bn->image) }}"
-                                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="Banner {{ $index + 1 }}">
-                        </div>
-                    @empty
-                        <p>No banners</p>
-                    @endforelse
-                </div>
-                {{-- <!-- Slider indicators -->
-                <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-                    <button type="button" class="w-3 h-3 rounded-base" aria-current="true" aria-label="Slide 1"
-                        data-carousel-slide-to="0"></button>
-                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 2"
-                        data-carousel-slide-to="1"></button>
-                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 3"
-                        data-carousel-slide-to="2"></button>
-                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 4"
-                        data-carousel-slide-to="3"></button>
-                    <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 5"
-                        data-carousel-slide-to="4"></button>
-                </div> --}}
-                <!-- Slider controls -->
-                <!-- Nút Previous -->
-                <button type="button"
-                    class="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
-                    w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
-                    hover:bg-white/70 transition-all duration-300 cursor-pointer"
-                    data-carousel-prev>
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-
-                <!-- Nút Next -->
-                <button type="button"
-                    class="absolute right-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
-                    w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
-                    hover:bg-white/70 transition-all duration-300 cursor-pointer"
-                    data-carousel-next>
-                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-
-            </div>
-        </section>
-
-        {{-- BLOCK SẢN PHẨM NAM --}}
-        <section id="section-men" class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg md:text-xl font-bold uppercase">Nam</h2>
-                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                </div>
-
-                <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-
-                    @forelse($products_nam as $product)
-                        <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                            <a href="#">
-                                <div class="relative">
-                                    @if ($product->image)
-                                        <img class="w-full aspect-[3/4] object-cover"
-                                            src="{{ asset($product->image) }}" alt="Product Image" />
-                                    @endif
-
-                                    <span
-                                        class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                        -20%
-                                    </span>
-                                </div>
-                                <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
-                                    <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        {{ $product->description }}
-                                    </h3>
-                                    <div class="mt-1 flex items-center gap-2">
-                                        <span
-                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
-                                        <span
-                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
-                                    </div>
-                                    <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
-                                </div>
-                            </a>
-                        </div>
-                    @empty
-                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
-                    @endforelse
-        </section>
-
-        {{-- BANNER 1 --}}
-        <section class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                <div class="relative overflow-hidden rounded-2xl">
-                    @forelse($banner1 as $bn)
-                        <img src="{{ asset($bn->image) }}" alt="Banner 1"
-                            class="w-full h-full object-cover max-h-[260px]">
-                    @empty
-                        <img src="#" alt="Banner 1" class="w-full h-full object-cover max-h-[260px]">
-                    @endforelse
-
-                </div>
-            </div>
-        </section>
-
-
-        {{-- BLOCK SẢN PHẨM NỮ --}}
-        <section id="section-women" class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg md:text-xl font-bold uppercase">Nữ</h2>
-                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                </div>
-
-                <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                    @forelse($products_nu as $product)
-                        <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                            <a href="#">
-                                <div class="relative">
-                                    @if ($product->image)
-                                        <img class="w-full aspect-[3/4] object-cover"
-                                            src="{{ asset($product->image) }}" alt="Product Image" />
-                                    @endif
-
-                                    <span
-                                        class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                        -20%
-                                    </span>
-                                </div>
-                                <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
-                                    <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        {{ $product->description }}
-                                    </h3>
-                                    <div class="mt-1 flex items-center gap-2">
-                                        <span
-                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
-                                        <span
-                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
-                                    </div>
-                                    <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
-                                </div>
-                            </a>
-                        </div>
-                    @empty
-                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
-                    @endforelse
-                </div>
-            </div>
-        </section>
-
-        {{-- BANNER 2 --}}
-        <section class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                <div class="relative overflow-hidden rounded-2xl">
-                    @forelse($banner2 as $bn)
-                        <img src="{{ asset($bn->image) }}" alt="Banner 2"
-                            class="w-full h-full object-cover max-h-[260px]">
-                    @empty
-                        <img src="#" alt="Banner 2" class="w-full h-full object-cover max-h-[260px]">
-                    @endforelse
-
-                </div>
-            </div>
-        </section>
-
-        {{-- BLOCK TRẺ EM --}}
-        <section id="section-kids" class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
-                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                </div>
-
-                <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
-                    @forelse($products_treem as $product)
-                        <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                            <a href="#">
-                                <div class="relative">
-                                    @if ($product->image)
-                                        <img class="w-full aspect-[3/4] object-cover"
-                                            src="{{ asset($product->image) }}" alt="Product Image" />
-                                    @endif
-
-                                    <span
-                                        class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
-                                        -20%
-                                    </span>
-                                </div>
-                                <div class="px-2 py-2">
-                                    <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
-                                    <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
-                                        {{ $product->description }}
-                                    </h3>
-                                    <div class="mt-1 flex items-center gap-2">
-                                        <span
-                                            class="text-sm md:text-base font-bold text-red-600">{{ $product->discount_price }}</span>
-                                        <span
-                                            class="text-[11px] text-gray-400 line-through">{{ $product->price }}</span>
-                                    </div>
-                                    <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
-                                </div>
-                            </a>
-                        </div>
-                    @empty
-                        <p class="text-sm text-gray-500">Không có sản phẩm</p>
-                    @endforelse
-                </div>
-            </div>
-        </section>
-
-        {{-- BANNER 3 --}}
-        <section class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-                <div class="relative overflow-hidden rounded-2xl">
-                    @forelse($banner3 as $bn)
-                        <img src="{{ asset($bn->image) }}" alt="Banner 3"
-                            class="w-full h-full object-cover max-h-[260px]">
-                    @empty
-                        <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
-                    @endforelse
-
-                </div>
-            </div>
-        </section>
-
-        {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
-        <section id="section-collection" class="bg-white">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                <div class="grid md:grid-cols-2 gap-4 items-center">
-                    <div>
-                        <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
-                        <p class="mt-3 text-sm text-gray-600">
-                            Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
-                            chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
-                        </p>
-                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                            <li>• Chất liệu co giãn thoải mái</li>
-                            <li>• Bảng size đầy đủ cho cả gia đình</li>
-                            <li>• Màu sắc tươi sáng, trẻ trung</li>
-                        </ul>
-                        <div class="mt-4">
-                            <a href="#"
-                                class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
-                                Xem bộ sưu tập
-                            </a>
-                        </div>
+@extends('component.mainlayout')
+@section('title', 'YODY Shop')
+@section('content')
+    {{-- BANNER LỚN --}}
+    <section class="bg-white">
+        <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <div class="relative h-56 overflow-hidden rounded-base md:h-96">
+                @forelse($carouselBanners as $index => $bn)
+                    <div class="hiden duration-700 ease-in-out"
+                        data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
+                        <img src="{{ asset($bn->image) }}"
+                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            alt="Banner {{ $index + 1 }}">
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <img src="{{ asset('collection/family1.jpg') }}"
-                            class="rounded-2xl w-full h-full object-cover" alt="">
-                        <img src="{{ asset('collection/family2.jpg') }}"
-                            class="rounded-2xl w-full h-full object-cover" alt="">
-                    </div>
-                </div>
-        </section>
+                @empty
+                    <p>No banners</p>
+                @endforelse
+            </div>
+            {{-- <!-- Slider indicators -->
+            <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+                <button type="button" class="w-3 h-3 rounded-base" aria-current="true" aria-label="Slide 1"
+                    data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 2"
+                    data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 3"
+                    data-carousel-slide-to="2"></button>
+                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 4"
+                    data-carousel-slide-to="3"></button>
+                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 5"
+                    data-carousel-slide-to="4"></button>
+            </div> --}}
+            <!-- Slider controls -->
+            <!-- Nút Previous -->
+            <button type="button"
+                class="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
+                w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
+                hover:bg-white/70 transition-all duration-300 cursor-pointer"
+                data-carousel-prev>
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
 
-        {{-- 6. BLOG / TIN TỨC --}}
-        <section class="bg-gray-50">
-            <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
-                    <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
-                </div>
+            <!-- Nút Next -->
+            <button type="button"
+                class="absolute right-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
+                w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
+                hover:bg-white/70 transition-all duration-300 cursor-pointer"
+                data-carousel-next>
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
 
-                <div class="grid md:grid-cols-3 gap-4">
-                    @for ($i = 1; $i <= 3; $i++)
-                        <article class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-sm">
-                            <a href="#">
-                                <img src="{{ asset('blog/blog_' . $i . '.jpg') }}"
-                                    alt="Bài viết {{ $i }}" class="w-full h-40 object-cover">
-                                <div class="p-3">
-                                    <p class="text-[11px] text-gray-400 uppercase mb-1">Mẹo mặc đẹp</p>
-                                    <h3 class="text-sm md:text-base font-semibold line-clamp-2">
-                                        10+ cách phối đồ giữ ấm mà vẫn thời trang mùa đông {{ $i }}
-                                    </h3>
-                                    <p class="mt-1 text-xs text-gray-500 line-clamp-2">
-                                        Gợi ý phối áo phao, áo giữ nhiệt, quần jean... giúp bạn tự tin xuống phố những
-                                        ngày lạnh.
-                                    </p>
-                                    <p class="mt-2 text-[11px] text-gray-400">Ngày đăng: 24/11/2025</p>
+        </div>
+    </section>
+
+    {{-- BLOCK SẢN PHẨM NAM --}}
+    <section id="section-men" class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg md:text-xl font-bold uppercase">Nam</h2>
+                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+            </div>
+
+            <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
+
+                @forelse($products_nam as $product)
+                    <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                            <div class="relative">
+                                @if ($product->image)
+                                    <img class="w-full aspect-[3/4] object-cover"
+                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                @endif
+
+                                <span
+                                    class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                    -20%
+                                </span>
+                            </div>
+                            <div class="px-2 py-2">
+                                <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
+                                <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                    {{ $product->description }}
+                                </h3>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <span
+                                        class="text-sm md:text-base font-bold text-red-600">{{ format_price($product->discount_price) }}</span>
+                                    <span
+                                        class="text-[11px] text-gray-400 line-through">{{ format_price($product->price) }}</span>
                                 </div>
-                            </a>
-                        </article>
-                    @endfor
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-
-    {{-- FOOTER YODY STYLE --}}
-    <footer class="bg-white mt-10 border-t border-gray-200">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
-                <div>
-                    <h3 class="font-semibold mb-2">VỀ YODY</h3>
-                    <ul class="space-y-1 text-gray-600">
-                        <li><a href="#" class="hover:underline">Giới thiệu</a></li>
-                        <li><a href="#" class="hover:underline">Tuyển dụng</a></li>
-                        <li><a href="#" class="hover:underline">Hệ thống cửa hàng</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">HỖ TRỢ KHÁCH HÀNG</h3>
-                    <ul class="space-y-1 text-gray-600">
-                        <li><a href="#" class="hover:underline">Chính sách đổi trả</a></li>
-                        <li><a href="#" class="hover:underline">Chính sách vận chuyển</a></li>
-                        <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">LIÊN HỆ</h3>
-                    <ul class="space-y-1 text-gray-600">
-                        <li>Hotline: 1800 2086</li>
-                        <li>Email: care@yody.vn</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">KẾT NỐI VỚI YODY</h3>
-                    <div class="flex space-x-3">
-                        <a href="#"
-                            class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">f</a>
-                        <a href="#"
-                            class="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs">IG</a>
-                        <a href="#"
-                            class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-xs">YT</a>
+                                <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                            </div>
+                        </a>
                     </div>
-                </div>
-            </div>
+                @empty
+                    <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                @endforelse
+    </section>
 
-            <div class="mt-6 border-t border-gray-200 pt-4 text-xs text-gray-500 flex flex-wrap justify-between">
-                <span>© {{ date('Y') }} YODY. All Rights Reserved.</span>
+    {{-- BANNER 1 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                @forelse($banner1 as $bn)
+                    <img src="{{ asset($bn->image) }}" alt="Banner 1"
+                        class="w-full h-full object-cover max-h-[260px]">
+                @empty
+                    <img src="#" alt="Banner 1" class="w-full h-full object-cover max-h-[260px]">
+                @endforelse
+
             </div>
         </div>
-    </footer>
-
-    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
-
-    <script>
-        const btnSearchMobile = document.getElementById('toggle-search-mobile');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (btnSearchMobile && mobileMenu) {
-            btnSearchMobile.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-    </script>
+    </section>
 
 
-</body>
+    {{-- BLOCK SẢN PHẨM NỮ --}}
+    <section id="section-women" class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg md:text-xl font-bold uppercase">Nữ</h2>
+                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+            </div>
 
-</html>
+            <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
+                @forelse($products_nu as $product)
+                    <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                            <div class="relative">
+                                @if ($product->image)
+                                    <img class="w-full aspect-[3/4] object-cover"
+                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                @endif
+
+                                <span
+                                    class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                    -20%
+                                </span>
+                            </div>
+                            <div class="px-2 py-2">
+                                <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
+                                <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                    {{ $product->description }}
+                                </h3>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <span
+                                        class="text-sm md:text-base font-bold text-red-600">{{ format_price($product->discount_price) }}</span>
+                                    <span
+                                        class="text-[11px] text-gray-400 line-through">{{ format_price($product->price) }}</span>
+                                </div>
+                                <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    {{-- BANNER 2 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                @forelse($banner2 as $bn)
+                    <img src="{{ asset($bn->image) }}" alt="Banner 2"
+                        class="w-full h-full object-cover max-h-[260px]">
+                @empty
+                    <img src="#" alt="Banner 2" class="w-full h-full object-cover max-h-[260px]">
+                @endforelse
+
+            </div>
+        </div>
+    </section>
+
+    {{-- BLOCK TRẺ EM --}}
+    <section id="section-kids" class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
+                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+            </div>
+
+            <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
+                @forelse($products_treem as $product)
+                    <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
+                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                            <div class="relative">
+                                @if ($product->image)
+                                    <img class="w-full aspect-[3/4] object-cover"
+                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                @endif
+
+                                <span
+                                    class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                    -20%
+                                </span>
+                            </div>
+                            <div class="px-2 py-2">
+                                <p class="text-[11px] text-gray-500 uppercase mb-1">{{ $product->name }}</p>
+                                <h3 class="text-xs md:text-sm font-semibold line-clamp-2">
+                                    {{ $product->description }}
+                                </h3>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <span
+                                        class="text-sm md:text-base font-bold text-red-600">{{ format_price($product->discount_price) }}</span>
+                                    <span
+                                        class="text-[11px] text-gray-400 line-through">{{ format_price($product->price) }}</span>
+                                </div>
+                                <p class="mt-1 text-[11px] text-green-600">Freeship đơn từ 498K</p>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-sm text-gray-500">Không có sản phẩm</p>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    {{-- BANNER 3 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                @forelse($banner3 as $bn)
+                    <img src="{{ asset($bn->image) }}" alt="Banner 3"
+                        class="w-full h-full object-cover max-h-[260px]">
+                @empty
+                    <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
+                @endforelse
+
+            </div>
+        </div>
+    </section>
+
+    {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
+    <section id="section-collection" class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+            <div class="grid md:grid-cols-2 gap-4 items-center">
+                <div>
+                    <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
+                    <p class="mt-3 text-sm text-gray-600">
+                        Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
+                        chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
+                    </p>
+                    <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                        <li>• Chất liệu co giãn thoải mái</li>
+                        <li>• Bảng size đầy đủ cho cả gia đình</li>
+                        <li>• Màu sắc tươi sáng, trẻ trung</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="#"
+                            class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
+                            Xem bộ sưu tập
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <img src="{{ asset('collection/family1.jpg') }}"
+                        class="rounded-2xl w-full h-full object-cover" alt="">
+                    <img src="{{ asset('collection/family2.jpg') }}"
+                        class="rounded-2xl w-full h-full object-cover" alt="">
+                </div>
+            </div>
+    </section>
+
+    {{-- 6. BLOG / TIN TỨC --}}
+    <section class="bg-gray-50">
+        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
+                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                @for ($i = 1; $i <= 3; $i++)
+                    <article class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-sm">
+                        <a href="#">
+                            <img src="{{ asset('blog/blog_' . $i . '.jpg') }}"
+                                alt="Bài viết {{ $i }}" class="w-full h-40 object-cover">
+                            <div class="p-3">
+                                <p class="text-[11px] text-gray-400 uppercase mb-1">Mẹo mặc đẹp</p>
+                                <h3 class="text-sm md:text-base font-semibold line-clamp-2">
+                                    10+ cách phối đồ giữ ấm mà vẫn thời trang mùa đông {{ $i }}
+                                </h3>
+                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">
+                                    Gợi ý phối áo phao, áo giữ nhiệt, quần jean... giúp bạn tự tin xuống phố những
+                                    ngày lạnh.
+                                </p>
+                                <p class="mt-2 text-[11px] text-gray-400">Ngày đăng: 24/11/2025</p>
+                            </div>
+                        </a>
+                    </article>
+                @endfor
+            </div>
+        </div>
+    </section>
+@endsection

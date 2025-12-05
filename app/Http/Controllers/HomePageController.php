@@ -38,4 +38,11 @@ class HomePageController extends Controller
         $banner3 = Banner::where('position', 'middle-3')->where('status', 1)->get();
         return view('component.layout', compact('products_nam','products_nu','products_treem', 'carouselBanners', 'banner1', 'banner2', 'banner3',));
     }
+
+
+    public function productdetail($id){
+        $product_info = Product::with('images')->findOrFail($id);
+
+        return view('component.productdetail',compact('product_info'));
+    }
 }

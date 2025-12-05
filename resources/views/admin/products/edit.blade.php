@@ -95,7 +95,6 @@
                                     {{-- Hiển thị ảnh cũ  --}}
                                     <img src="{{ asset($product->image) }}"
                                         class="absolute inset-0 w-full h-full object-contain bg-white" />
-                                
                                 @else
                                     <svg class="w-8 h-8 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="24" height="24" fill="none" viewBox="0 0 24 24" id="dropzone-icon">
@@ -103,7 +102,8 @@
                                             stroke-width="2"
                                             d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2" />
                                     </svg>
-                                    <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and drop
+                                    <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and
+                                        drop
                                     </p>
                                     <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 @endif
@@ -112,75 +112,68 @@
                             <input id="dropzone-file" type="file" name ="image" class="hidden" accept="image/*" />
                         </label>
                     </div>
-                    
 
-                    {{-- Gallery --}}
+
                     <div class="sm:col-span-4">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Các ảnh phụ
                         </label>
 
                         {{-- VÙNG HIỂN THỊ ẢNH + DROPZONE --}}
-                        <div id="gallery-wrapper" class="flex flex-wrap gap-4">
+                        <div id="gallery-wrapper" class="flex flex-col gap-2">
 
-                            {{-- ẢNH GALLERY CŨ --}}
+                            {{-- ẢNH CŨ --}}
                             @if ($product->images && $product->images->count() > 0)
-                                @foreach ($product->images as $img)
-                                    <div
-                                        class="dropzone-item w-28 h-36 relative bg-neutral-secondary-medium border border-dashed 
-                                        border-default-strong rounded-base flex justify-center items-center overflow-hidden">
+                                <div id="old-gallery"
+                                    class="flex gap-2 overflow-x-auto p-1 border rounded border-gray-200">
+                                    @foreach ($product->images as $img)
+                                        <div class="relative w-24 h-24 flex-shrink-0 border rounded overflow-hidden">
+                                            <img src="{{ asset($img->url_image) }}" class="w-full h-full object-cover">
 
-                                        <img src="{{ asset($img->url_image) }}"
-                                            class="absolute inset-0 w-full h-full object-contain">
+                                            {{-- NÚT XÓA --}}
+                                            <button type="button"
+                                                class="delete-old absolute top-1 right-1 bg-white w-6 h-6 flex items-center justify-center rounded-full text-xs shadow"
+                                                data-id="{{ $img->id }}">
+                                                &times;
+                                            </button>
 
-                                        {{-- NÚT XÓA --}}
-                                        <button type="button"
-                                            class="delete-old absolute top-1 right-1  text-white w-6 h-6 cursor-pointer rounded-full 
-                                            flex items-center justify-center text-xs"
-                                            data-id="{{ $img->id }}">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18 17.94 6M18 18 6.06 6" />
-                                            </svg>
+                                            {{-- input hidden để gửi id ảnh cần xoá --}}
+                                            <input type="hidden" name="old_gallery[]" class="delete-input"
+                                                value="{{ $img->id }}">
 
-                                        </button>
 
-                                        {{-- input hidden để gửi id ảnh cần xoá --}}
-                                        <input type="hidden" name="old_gallery[]" class="delete-input" disabled
-                                            value="{{ $img->id }}">
-                                    </div>
-                                @endforeach
+                                        </div>
+                                    @endforeach
+                                </div>
                             @endif
 
                             {{-- DROPZONE MỚI MẶC ĐỊNH --}}
-                            <div
-                                class="dropzone-item w-28 h-36 relative bg-neutral-secondary-medium border border-dashed 
-                                border-default-strong rounded-base flex justify-center items-center cursor-pointer overflow-hidden">
+                            <label for="gallery-input"
+                                class="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 hover:bg-gray-50 transition">
 
-                                <input type="file" name="new_gallery[]" class="gallery-input hidden" accept="image/*">
+                                <input type="file" name="new_gallery[]" id="gallery-input" multiple class="hidden">
 
-                                <div
-                                    class="absolute inset-0 flex flex-col items-center justify-center text-center px-2 pointer-events-none">
-                                    <svg class="w-8 h-8 mb-1" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24">
+                                <div class="flex flex-col items-center justify-center text-center text-gray-500">
+                                    <svg class="w-8 h-8 mb-1 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"
                                             d="M12 19V10m0 0l-2 2m2-2 2 2m-9 3h3a3 3 0 010-6h.025a5.5 5.5 0 1110.975.5H17a3 3 0 010 6h-2" />
                                     </svg>
-                                    <p class="text-xs">Thêm ảnh</p>
+                                    <p class="text-xs">Click để thêm ảnh</p>
                                 </div>
+                            </label>
 
-                            </div>
-
+                            {{-- Container preview ảnh mới --}}
+                            <div id="gallery-preview"
+                                class="flex gap-2 overflow-x-auto p-1 border rounded border-gray-200"></div>
                         </div>
 
                         @error('gallery.*')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
                     </div>
+
 
 
                     <button type="submit"

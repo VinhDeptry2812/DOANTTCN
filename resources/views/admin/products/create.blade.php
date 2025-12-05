@@ -108,33 +108,33 @@
 
                     {{-- Gallery --}}
                     <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ảnh Con</span>
-                    <div id="gallery-wrapper" class="flex flex-col gap-4 sm:col-span-4">
+                    <div id="gallery-wrapper" class="flex flex-col sm:col-span-4 gap-2">
 
-                        <!-- DROPZONE MẪU (được clone ra thêm) -->
-                        <div class="dropzone-item">
-                            <label
-                                class="relative flex items-center justify-center w-full h-64 bg-neutral-secondary-medium 
-                                border border-dashed border-default-strong rounded-base cursor-pointer 
-                                hover:bg-neutral-tertiary-medium overflow-hidden">
+                        <!-- Dropzone chính -->
+                        <label for="gallery-input"
+                            class="relative w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 hover:bg-gray-50 transition">
 
-                                <div
-                                    class="preview-area flex flex-wrap gap-3 items-center justify-center 
-                                    absolute inset-0 p-0 overflow-auto text-center">
-                                    <svg class="w-8 h-8 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2" />
-                                    </svg>
-                                    <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span></p>
-                                    <p class="text-xs">PNG, JPG, GIF...</p>
-                                </div>
+                            <input type="file" name="new_gallery[]" id="gallery-input" multiple class="hidden">
 
-                                <input type="file" name="gallery[]" class="gallery-input hidden" accept="image/*" />
-                            </label>
+                            <div class="flex flex-col items-center justify-center text-center text-gray-500">
+                                <svg class="w-8 h-8 mb-1 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M12 19V10m0 0l-2 2m2-2 2 2m-9 3h3a3 3 0 010-6h.025a5.5 5.5 0 1110.975.5H17a3 3 0 010 6h-2" />
+                                </svg>
+                                <p class="text-xs">Click để thêm ảnh</p>
+                            </div>
+                        </label>
+
+                        <!-- Container preview ngang -->
+                        <div id="gallery-preview" class="flex gap-2 overflow-x-auto p-1 border rounded border-gray-200">
+                            <!-- Ảnh sẽ hiển thị ở đây -->
                         </div>
 
                     </div>
+
+
                     <button type="submit"
                         class="inline-flex w-30 items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                         Add Product
