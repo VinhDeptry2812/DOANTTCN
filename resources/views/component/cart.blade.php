@@ -118,11 +118,29 @@
                             <span>Phí vận chuyển</span>
                             <span id="ship">{{ $ship > 0 ? format_price($ship) : '—' }}</span>
                         </div>
+                        
+
                         <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between text-base font-bold">
                             <span>Tổng cộng</span>
                             <span id="total">{{ format_price($total) }}</span>
                         </div>
                     </div>
+                    {{-- Ma giam gia --}}
+                    <div class="mt-4 flex flex-col gap-2">
+                        <label for="discount_code" class="text-sm font-semibold text-gray-700">Mã giảm giá</label>
+                        <div class="flex">
+                            <input type="text" id="discount_code"
+                                class="flex-1 border border-gray-300 rounded-l px-3 py-2 text-sm focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+                                placeholder="Nhập mã giảm giá">
+                            <button id="apply-discount"
+                                class="bg-[#ff9b0d] hover:bg-[#f79400] text-white px-4 py-2 rounded-r text-sm font-semibold">
+                                Áp dụng
+                            </button>
+                        </div>
+                        <p id="discount-message" class="text-xs text-red-500"></p>
+                    </div>
+
+
 
                     <p class="mt-3 text-xs text-gray-500">
                         Bằng việc đặt hàng, bạn đồng ý với
@@ -231,6 +249,55 @@
             });
         });
     </script>
+    {{-- Xu li ap dung ma giam gia --}}
+    <script>
+        document.getElementById('apply-discount').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let code = document.getElementById('discount_code').value.trim();
+            if (!code) return;
+
+            const btn = this;
+            btn.disabled = true; // disable button để tránh spam
+
+            fetch("{{ route('cart.applyDiscount') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        code
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = document.getElementById('discount-message');
+
+                    if (data.success) {
+                        msg.classList.remove('text-red-500');
+                        msg.classList.add('text-green-500');
+                        msg.innerText =
+                            `Áp dụng thành công! Giảm ${new Intl.NumberFormat().format(data.discount_amount)}₫`;
+
+                        // Cập nhật subtotal, ship, total
+                        document.querySelector('#subtotal').innerText =
+                            new Intl.NumberFormat().format(data.subtotal) + "₫";
+                        document.querySelector('#ship').innerText =
+                            data.ship > 0 ? new Intl.NumberFormat().format(data.ship) + "₫" : "—";
+                        document.querySelector('#total').innerText =
+                            new Intl.NumberFormat().format(data.total) + "₫";
+
+                    } else {
+                        msg.classList.remove('text-green-500');
+                        msg.classList.add('text-red-500');
+                        msg.innerText = data.message;
+                    }
+                })
+                .finally(() => btn.disabled = false);
+        });
+    </script>
+
 
 
 @endsection

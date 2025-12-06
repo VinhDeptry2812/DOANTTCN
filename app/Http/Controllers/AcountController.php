@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AcountInfoRequest;
 use App\Http\Requests\AcountRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -64,8 +65,9 @@ class AcountController extends Controller
 
     public function acount_info()
     {
+        $categories = Category::all();
 
-        return view('component.acountpage');
+        return view('component.acountpage',compact('categories'));
     }
 
     public function update_info(AcountInfoRequest $request)

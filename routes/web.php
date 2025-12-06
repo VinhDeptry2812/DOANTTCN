@@ -38,4 +38,6 @@ Route::get('/acount_info', [AcountController::class, 'acount_info'])->name('acou
 
 Route::put('/acount_info/update', [AcountController::class, 'update_info'])->name('acount.update_info');
 
+Route::get('/product_all', [HomePageController::class, 'indexAll'])->name('product.all');
 
+Route::post('/cart/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('cart.applyDiscount');

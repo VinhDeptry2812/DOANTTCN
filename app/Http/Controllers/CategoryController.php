@@ -26,23 +26,35 @@ class CategoryController extends Controller
 
     public function store(StoraCategoryRequest $request)
     {
-
         $imagePath = null;
-
-        // Xử lý upload ảnh
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension(); // tạo tên file duy nhất
-            $file->move(public_path('uploads'), $filename); // lưu vào public/uploads
-            $imagePath = $filename; // đường dẫn để lưu vào DB
-        }
-
-        Category::create([
+        $categories = Category::create([
             'name' => $request->name,
             'decription' => $request->decription,
             'image' => $imagePath,
             'slug' => Str::slug($request->name),
         ]);
+
+        // Lưu ảnh
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            $fileName = uniqid() . '-' . $file->getClientOriginalName();
+            $destination = public_path('uploads/category');
+
+            // Tự tạo folder nếu chưa có
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+
+            // Lưu vào bảng images
+            $categories->image = 'uploads/category/' . $fileName;
+
+
+            $file->move($destination, $fileName);
+            $categories->save();
+        }
+
+        
 
         return redirect()->route('categories.index')->with('success', 'Them danh muc thanh cong!');
     }
@@ -58,7 +70,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        
+
 
         // Xử lý upload ảnh mới
         if ($request->hasFile('image')) {

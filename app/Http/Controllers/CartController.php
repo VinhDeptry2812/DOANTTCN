@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,8 @@ class CartController extends Controller
             return $price * $qty;
         });
 
+        $categories = Category::all();
+
         // logic phí ship 
         // 1) miễn phí khi subtotal >= 500k
         // 2) ngược lại 30k
@@ -32,7 +35,7 @@ class CartController extends Controller
 
         $total = $subtotal + $ship;
 
-        return view('component.cart', compact('cartItems', 'subtotal', 'ship', 'total'));
+        return view('component.cart', compact('cartItems','categories', 'subtotal', 'ship', 'total'));
     }
 
 

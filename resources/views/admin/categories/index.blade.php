@@ -142,7 +142,7 @@
                                     <td class="px-4 py-3"> {{ $category->decription }}</td>
                                     <td class="px-4 py-3"> {{ $category->slug }}</td>
                                     <td class="px-4 py-3"><img class="w-16 h-16 object-cover rounded"
-                                            src="{{ asset('uploads/category/' . $category->image) }}"
+                                            src="{{ asset($category->image) }}"
                                             alt="Category Image" /></td>
 
                                     <td x-data="{ open: false }" class="relative">

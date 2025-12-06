@@ -23,8 +23,8 @@ class StoraCategoryRequest extends FormRequest
     {
         return [
             'name'=>'string|required|unique:categories,name',
-            'decription' =>'string|required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048'
+            'decription' =>'string|nullable',
+            'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
         ];
     }
 }

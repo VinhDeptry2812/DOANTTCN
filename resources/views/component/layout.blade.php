@@ -63,7 +63,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Nam</h2>
-                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
@@ -123,7 +123,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Nữ</h2>
-                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
@@ -183,7 +183,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
-                <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">

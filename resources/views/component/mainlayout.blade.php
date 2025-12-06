@@ -51,14 +51,16 @@
                 </a>
 
                 {{-- SEARCH (PC) --}}
-                <form action="#" method="GET"
+                <form action="{{ route('product.all') }}" method="GET"
                     class="hidden lg:flex flex-1 mx-8 max-w-xl bg-white rounded-full overflow-hidden border border-yellow-300">
-                    <input type="text" name="q" class="flex-1 px-4 py-2 text-sm focus:outline-none"
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        class="flex-1 px-4 py-2 text-sm focus:outline-none"
                         placeholder="Tìm sản phẩm: áo polo, quần jean, váy, phụ kiện...">
                     <button type="submit" class="px-4 py-2 text-sm font-semibold bg-[#ff9b0d] text-white">
                         Tìm kiếm
                     </button>
                 </form>
+
 
                 {{-- RIGHT ACTIONS --}}
                 <div class="flex items-center space-x-3 lg:space-x-6 lg:order-2">
@@ -116,7 +118,7 @@
                             {{-- Dropdown --}}
                             <div
                                 class="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
-                                <a href="{{route('acount.info')}}" class="block px-3 py-2 text-sm hover:bg-gray-100">
+                                <a href="{{ route('acount.info') }}" class="block px-3 py-2 text-sm hover:bg-gray-100">
                                     👤 Tài khoản
                                 </a>
                                 @if (Auth::user()->role == 'admin')
@@ -153,21 +155,17 @@
                 {{-- MENU DESKTOP --}}
                 <div class="hidden lg:flex w-full mt-3 lg:mt-0 lg:w-auto lg:order-1">
                     <ul class="flex flex-wrap items-center text-sm font-semibold uppercase">
-                        <li class="mr-6">
-                            <a href="#section-men" class="hover:underline underline-offset-4">Nam</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-women" class="hover:underline underline-offset-4">Nữ</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-kids" class="hover:underline underline-offset-4">Trẻ em</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#section-collection" class="hover:underline underline-offset-4">Bộ sưu tập</a>
-                        </li>
-                        <li class="mr-6">
-                            <a href="#" class="hover:underline underline-offset-4">Sale</a>
-                        </li>
+                        @foreach ($categories as $tag)
+                            @if (in_array($tag->name, ['Nam', 'Nữ', 'Trẻ em']))
+                                <li class="mr-6">
+                                    <a href="{{ route('product.all', ['category' => $tag->id]) }}"
+                                        class="hover:underline underline-offset-4
+                                        {{ request('category') == $tag->id ? 'underline' : '' }}">
+                                        {{ $tag->name }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
 
