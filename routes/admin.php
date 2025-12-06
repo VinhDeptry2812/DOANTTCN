@@ -72,7 +72,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->controller(BlogController
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->controller(OrderController::class)->name('order.')->group(function () {
     Route::get('/order/index', 'index')->name('index'); // order.index 
-    Route::get('/orders/{id}', 'show')->name('show');
     Route::get('/order/edit/{id}', 'edit')->name('edit');
     Route::put('/order/update/{id}', 'update')->name('update');
     Route::get('/order/show/{id}', 'show')->name('show');
