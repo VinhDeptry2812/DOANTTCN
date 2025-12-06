@@ -7,8 +7,7 @@
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-base md:h-96">
                 @forelse($carouselBanners as $index => $bn)
-                    <div class="hiden duration-700 ease-in-out"
-                        data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
+                    <div class="hiden duration-700 ease-in-out" data-carousel-item="{{ $index === 0 ? 'active' : '' }}">
                         <img src="{{ asset($bn->image) }}"
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="Banner {{ $index + 1 }}">
@@ -63,22 +62,21 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Nam</h2>
-                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{ route('product.all') }}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
 
                 @forelse($products_nam as $product)
                     <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                        <a href="{{ route('productdetail', ['id' => $product->id]) }}">
                             <div class="relative">
                                 @if ($product->image)
-                                    <img class="w-full aspect-[3/4] object-cover"
-                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                    <img class="w-full aspect-[3/4] object-cover" src="{{ asset($product->image) }}"
+                                        alt="Product Image" />
                                 @endif
 
-                                <span
-                                    class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
                                     -20%
                                 </span>
                             </div>
@@ -107,8 +105,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
             <div class="relative overflow-hidden rounded-2xl">
                 @forelse($banner1 as $bn)
-                    <img src="{{ asset($bn->image) }}" alt="Banner 1"
-                        class="w-full h-full object-cover max-h-[260px]">
+                    <img src="{{ asset($bn->image) }}" alt="Banner 1" class="w-full h-full object-cover max-h-[260px]">
                 @empty
                     <img src="#" alt="Banner 1" class="w-full h-full object-cover max-h-[260px]">
                 @endforelse
@@ -123,21 +120,21 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Nữ</h2>
-                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{ route('product.all') }}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất
+                    cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
                 @forelse($products_nu as $product)
                     <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                        <a href="{{ route('productdetail', ['id' => $product->id]) }}">
                             <div class="relative">
                                 @if ($product->image)
-                                    <img class="w-full aspect-[3/4] object-cover"
-                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                    <img class="w-full aspect-[3/4] object-cover" src="{{ asset($product->image) }}"
+                                        alt="Product Image" />
                                 @endif
 
-                                <span
-                                    class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
+                                <span class="absolute left-2 top-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded">
                                     -20%
                                 </span>
                             </div>
@@ -168,8 +165,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
             <div class="relative overflow-hidden rounded-2xl">
                 @forelse($banner2 as $bn)
-                    <img src="{{ asset($bn->image) }}" alt="Banner 2"
-                        class="w-full h-full object-cover max-h-[260px]">
+                    <img src="{{ asset($bn->image) }}" alt="Banner 2" class="w-full h-full object-cover max-h-[260px]">
                 @empty
                     <img src="#" alt="Banner 2" class="w-full h-full object-cover max-h-[260px]">
                 @endforelse
@@ -183,17 +179,18 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-6">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg md:text-xl font-bold uppercase">Trẻ em</h2>
-                <a href="{{route('product.all')}}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
+                <a href="{{ route('product.all') }}" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất
+                    cả</a>
             </div>
 
             <div class="grid grid-cols-2 grid-cols-4 grid-cols-5 gap-3 gap-4">
                 @forelse($products_treem as $product)
                     <div class="bg-white rounded-xl border border-gray-100 hover:shadow-sm overflow-hidden group">
-                        <a href="{{route('productdetail',['id'=>$product->id])}}">
+                        <a href="{{ route('productdetail', ['id' => $product->id]) }}">
                             <div class="relative">
                                 @if ($product->image)
-                                    <img class="w-full aspect-[3/4] object-cover"
-                                        src="{{ asset($product->image) }}" alt="Product Image" />
+                                    <img class="w-full aspect-[3/4] object-cover" src="{{ asset($product->image) }}"
+                                        alt="Product Image" />
                                 @endif
 
                                 <span
@@ -228,8 +225,7 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
             <div class="relative overflow-hidden rounded-2xl">
                 @forelse($banner3 as $bn)
-                    <img src="{{ asset($bn->image) }}" alt="Banner 3"
-                        class="w-full h-full object-cover max-h-[260px]">
+                    <img src="{{ asset($bn->image) }}" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
                 @empty
                     <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
                 @endforelse
@@ -261,43 +257,104 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
-                    <img src="{{ asset('collection/family1.jpg') }}"
-                        class="rounded-2xl w-full h-full object-cover" alt="">
-                    <img src="{{ asset('collection/family2.jpg') }}"
-                        class="rounded-2xl w-full h-full object-cover" alt="">
+                    <img src="{{ asset('collection/family1.jpg') }}" class="rounded-2xl w-full h-full object-cover"
+                        alt="">
+                    <img src="{{ asset('collection/family2.jpg') }}" class="rounded-2xl w-full h-full object-cover"
+                        alt="">
                 </div>
             </div>
     </section>
 
     {{-- 6. BLOG / TIN TỨC --}}
+    <!-- Blog Section -->
     <section class="bg-gray-50">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
+
             <div class="flex justify-between items-center mb-3">
-                <h2 class="text-lg md:text-xl font-bold uppercase">Tin tức & Cẩm nang mặc đẹp</h2>
+                <h2 class="text-lg md:text-xl font-bold uppercase">Blog yody</h2>
                 <a href="#" class="text-xs md:text-sm text-blue-600 hover:underline">Xem tất cả</a>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-4">
-                @for ($i = 1; $i <= 3; $i++)
-                    <article class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-sm">
-                        <a href="#">
-                            <img src="{{ asset('blog/blog_' . $i . '.jpg') }}"
-                                alt="Bài viết {{ $i }}" class="w-full h-40 object-cover">
-                            <div class="p-3">
-                                <p class="text-[11px] text-gray-400 uppercase mb-1">Mẹo mặc đẹp</p>
-                                <h3 class="text-sm md:text-base font-semibold line-clamp-2">
-                                    10+ cách phối đồ giữ ấm mà vẫn thời trang mùa đông {{ $i }}
-                                </h3>
-                                <p class="mt-1 text-xs text-gray-500 line-clamp-2">
-                                    Gợi ý phối áo phao, áo giữ nhiệt, quần jean... giúp bạn tự tin xuống phố những
-                                    ngày lạnh.
-                                </p>
-                                <p class="mt-2 text-[11px] text-gray-400">Ngày đăng: 24/11/2025</p>
+            @if ($blogs->count() > 3)
+
+                <div class="swiper myBlogSwiper">
+                    <div class="swiper-wrapper">
+
+                        @foreach ($blogs as $blog)
+                            <div class="swiper-slide">
+                                <article class="bg-white rounded-xl overflow-hidden border border-gray-100">
+                                    <a href="#" class="block">
+                                        <img src="{{ asset($blog->thumbnail) }}" class="w-full h-44 object-cover">
+
+                                        <div class="p-4 space-y-2">
+                                            <h3 class="text-base font-semibold text-gray-900 line-clamp-2">
+                                                {{ $blog->title }}
+                                            </h3>
+
+                                            <p class="text-xs text-gray-400">
+                                                {{ $blog->created_at->format('d/m/Y') }}
+                                            </p>
+                                        </div>
+                                    </a>
+                                </article>
                             </div>
-                        </a>
-                    </article>
-                @endfor
-            </div>
+                        @endforeach
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+            @else
+                <div class="grid md:grid-cols-3 gap-4">
+                    @foreach ($blogs as $blog)
+                        <article class="bg-white rounded-xl overflow-hidden border border-gray-100">
+                            <a href="#" class="block">
+                                <img src="{{ asset($blog->thumbnail) }}" class="w-full h-44 object-cover">
+
+                                <div class="p-4 space-y-2">
+                                    <h3 class="text-base font-semibold text-gray-900 line-clamp-2">
+                                        {{ $blog->title }}
+                                    </h3>
+
+                                    <p class="text-xs text-gray-400">
+                                        {{ $blog->created_at->format('d/m/Y') }}
+                                    </p>
+                                </div>
+                            </a>
+                        </article>
+                    @endforeach
+                </div>
+            @endif
+
         </div>
     </section>
+
+    <!-- SWIPER JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        new Swiper(".myBlogSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+
+            breakpoints: {
+                0: {
+                    slidesPerView: 1
+                },
+                640: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                },
+            }
+        });
+    </script>
+
+
 @endsection

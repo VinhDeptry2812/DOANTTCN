@@ -118,7 +118,7 @@
                             <span>Phí vận chuyển</span>
                             <span id="ship">{{ $ship > 0 ? format_price($ship) : '—' }}</span>
                         </div>
-                        
+
 
                         <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between text-base font-bold">
                             <span>Tổng cộng</span>
@@ -258,7 +258,7 @@
             if (!code) return;
 
             const btn = this;
-            btn.disabled = true; // disable button để tránh spam
+            btn.disabled = true;
 
             fetch("{{ route('cart.applyDiscount') }}", {
                     method: "POST",
@@ -280,14 +280,12 @@
                         msg.innerText =
                             `Áp dụng thành công! Giảm ${new Intl.NumberFormat().format(data.discount_amount)}₫`;
 
-                        // Cập nhật subtotal, ship, total
-                        document.querySelector('#subtotal').innerText =
-                            new Intl.NumberFormat().format(data.subtotal) + "₫";
-                        document.querySelector('#ship').innerText =
-                            data.ship > 0 ? new Intl.NumberFormat().format(data.ship) + "₫" : "—";
-                        document.querySelector('#total').innerText =
-                            new Intl.NumberFormat().format(data.total) + "₫";
-
+                        document.querySelector('#subtotal').innerText = new Intl.NumberFormat().format(data
+                            .subtotal) + "₫";
+                        document.querySelector('#ship').innerText = data.ship > 0 ? new Intl.NumberFormat()
+                            .format(data.ship) + "₫" : "—";
+                        document.querySelector('#total').innerText = new Intl.NumberFormat().format(data
+                            .total) + "₫";
                     } else {
                         msg.classList.remove('text-green-500');
                         msg.classList.add('text-red-500');

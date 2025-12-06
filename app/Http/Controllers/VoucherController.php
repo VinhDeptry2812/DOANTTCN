@@ -28,7 +28,7 @@ class VoucherController extends Controller
             'value'           => $req->value,
             'max_discount'    => $req->max_discount,
             'min_order_value' => $req->min_order_value,
-            'usage_limit'     => $req->quantity,
+            'usage_limit'     => $req->usage_limit,
             'usage_count'     => 0,
             'start_date'      => $req->start_date,
             'end_date'        => $req->end_date,

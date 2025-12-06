@@ -23,12 +23,6 @@ class AcountController extends Controller
         return view('admin.acount.indexUser', compact('acounts'));
     }
 
-    public function indexM()
-    {
-        $acounts = User::where('role', 'manager')->get();
-        return view('admin.acount.index', compact('acounts'));
-    }
-
     public function edit($id)
     {
         $acounts = User::findOrFail($id);

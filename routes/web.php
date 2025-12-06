@@ -6,7 +6,8 @@ use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\ForgotPassWordController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StatisticsController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 
@@ -30,14 +31,26 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
-Route::post('/ordersuccess', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
 
-Route::get('/ordercomplete', [CheckoutController::class, 'list'])->name('checkout.list');
+Route::get('/ordercomplete/{id}', [CheckoutController::class, 'list'])->name('checkout.list');
+
 
 Route::get('/acount_info', [AcountController::class, 'acount_info'])->name('acount.info');
+
+Route::get('/order/history', [OrderController::class, 'order_history'])->name('order.history');
+
+Route::get('/order/history/detail{id}', [OrderController::class, 'order_history_detail'])->name('order.history_detail');
 
 Route::put('/acount_info/update', [AcountController::class, 'update_info'])->name('acount.update_info');
 
 Route::get('/product_all', [HomePageController::class, 'indexAll'])->name('product.all');
 
 Route::post('/cart/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('cart.applyDiscount');
+
+
+
+
+
+
+

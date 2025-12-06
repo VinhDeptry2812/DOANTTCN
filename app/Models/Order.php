@@ -15,12 +15,18 @@ class Order extends Model
         'total_price',
         'status',
         'decription',
+        'discount_code',
+        'discount_amount',
+        'user_id',
+
     ];
 
     public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
-
-    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

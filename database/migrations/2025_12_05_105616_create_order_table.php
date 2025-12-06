@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('customer_email')->nullable();
             $table->string('customer_address');
             $table->integer('total_price');
+            $table->string('discount_code')->nullable();
+            $table->string('discount_amount')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('decription')->nullable();
             $table->string('status')->default('pending'); // pending, confirmed, shipping, completed, cancelled
             $table->timestamps();
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 };

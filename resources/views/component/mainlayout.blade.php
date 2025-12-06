@@ -6,7 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
     <title>@yield('title')</title>
+
 
 </head>
 
@@ -120,6 +124,10 @@
                                 class="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
                                 <a href="{{ route('acount.info') }}" class="block px-3 py-2 text-sm hover:bg-gray-100">
                                     👤 Tài khoản
+                                </a>
+                                <a href="{{ route('order.history') }}" class="block px-3 py-2 text-sm hover:bg-gray-100">
+                                    📦
+                                    Đơn hàng
                                 </a>
                                 @if (Auth::user()->role == 'admin')
                                     <a href="{{ route('admin.dashboard') }}"
@@ -270,7 +278,7 @@
             });
         }
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>

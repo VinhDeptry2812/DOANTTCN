@@ -3,9 +3,11 @@
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,17 +56,30 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->controller(BannerControll
     Route::get('/banner', 'index')->name('index'); // banner.index 
     Route::get('/banner/create', 'create')->name('create');
     Route::post('/banner/store', 'store')->name('store');
-    Route::get('/banner/edit/{id}','edit')->name('edit');
-    Route::put('/banner/update/{id}','update')->name('update');
-    Route::delete('/banner/delete/{id}','delete')->name('delete');
+    Route::get('/banner/edit/{id}', 'edit')->name('edit');
+    Route::put('/banner/update/{id}', 'update')->name('update');
+    Route::delete('/banner/delete/{id}', 'delete')->name('delete');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->controller(BlogController::class)->name('blog.')->group(function () {
+    Route::get('/blog', 'index')->name('index'); // blog.index 
+    Route::get('/blog/create', 'create')->name('create');
+    Route::post('/blog/store', 'store')->name('store');
+    Route::get('/blog/edit/{id}', 'edit')->name('edit');
+    Route::put('/blog/update/{id}', 'update')->name('update');
+    Route::delete('/blog/delete/{id}', 'delete')->name('delete');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->controller(OrderController::class)->name('order.')->group(function () {
     Route::get('/order/index', 'index')->name('index'); // order.index 
-    Route::get('/orders/{id}','show')->name('show');
-    Route::get('/order/edit/{id}','edit')->name('edit');
-    Route::put('/order/update/{id}','update')->name('update');
-    Route::get('/order/show/{id}','show')->name('show');
+    Route::get('/orders/{id}', 'show')->name('show');
+    Route::get('/order/edit/{id}', 'edit')->name('edit');
+    Route::put('/order/update/{id}', 'update')->name('update');
+    Route::get('/order/show/{id}', 'show')->name('show');
 });
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->controller(StatisticsController::class)->name('statistics.')->group(function () {
+    Route::get('/thong-ke', 'index')->name('index'); // statistics.index 
+    
+});
 

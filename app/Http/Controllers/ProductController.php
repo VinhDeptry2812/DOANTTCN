@@ -21,6 +21,7 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
+
     public function create()
     {
         $categories = Category::all();
@@ -129,7 +130,7 @@ class ProductController extends Controller
             $file->move($destination, $fileName);
             $product->save();
         }
-        
+
         // Xóa những ảnh cũ mà user bỏ chọn
         $oldImages = $product->images; // tất cả ảnh hiện tại
 

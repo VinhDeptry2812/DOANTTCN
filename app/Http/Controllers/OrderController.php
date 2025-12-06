@@ -6,13 +6,14 @@ use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
 
     public function index()
     {
-        $orders = Order::orderBy('created_at','desc')->get();
+        $orders = Order::orderBy('created_at', 'desc')->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -22,6 +23,23 @@ class OrderController extends Controller
         $order = Order::with(['items.product'])->findOrFail($id);
         return view('admin.orders.show', compact('order'));
     }
+
+    public function order_history()
+    {
+        $orders = Order::where('user_id', Auth::id())
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return view('component.orderHistory',compact('orders'));
+    }
+
+    public function order_history_detail($id)
+    {
+       $order = Order::findOrFail($id);
+
+        return view('component.orderHistorydetail',compact('order'));
+    }
+
 
 
     public function edit($id)

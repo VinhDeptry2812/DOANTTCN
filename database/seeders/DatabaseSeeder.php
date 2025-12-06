@@ -18,9 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call([
-            VoucherSeeder::class,
-        ]);
+        
 
         DB::table('user')->insert([
             [
@@ -34,24 +32,14 @@ class DatabaseSeeder extends Seeder
                 'dia_chi' => '',
             ],
             [
-                'name' => 'Nguyen Van A',
-                'email' => 'user1@example.com',
+                'name' => 'Thanh Óc Cứt',
+                'email' => 'khachhang@gmail.com',
                 'password' => Hash::make('12345678'),
                 'role' => 'user',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'phone_number' => '90909090',
-                'dia_chi' => 'o nha tao',
-            ],
-            [
-                'name' => 'Nguyen Van B',
-                'email' => 'user2@example.com',
-                'password' => Hash::make('12345678'),
-                'role' => 'manager',
-                'created_at' => now(),
-                'updated_at' => now(),
-                'phone_number' => '',
-                'dia_chi' => '',
+                'phone_number' => '999999999',
+                'dia_chi' => 'Dưới tầng hầm',
             ],
         ]);
         // DB::table('blogs')->insert([
@@ -117,42 +105,42 @@ class DatabaseSeeder extends Seeder
 
 
         // Danh mục
-        DB::table('categories')->insert([
-            [
-                'name' => 'Nam',
-                'decription' => 'Tất cả các loại áo quần cho nam.',
-                'slug' => Str::slug('Áo nam'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Nữ',
-                'decription' => 'Tất cả các loại áo quần cho nữ',
-                'slug' => Str::slug('Áo nữ'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Trẻ em',
-                'decription' => 'Bộ sưu tập giày dép cho nam và nữ.',
-                'slug' => Str::slug('Trẻ em'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        // DB::table('categories')->insert([
+        //     [
+        //         'name' => 'Nam',
+        //         'decription' => 'Tất cả các loại áo quần cho nam.',
+        //         'slug' => Str::slug('Áo nam'),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ],
+        //     [
+        //         'name' => 'Nữ',
+        //         'decription' => 'Tất cả các loại áo quần cho nữ',
+        //         'slug' => Str::slug('Áo nữ'),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ],
+        //     [
+        //         'name' => 'Trẻ em',
+        //         'decription' => 'Bộ sưu tập giày dép cho nam và nữ.',
+        //         'slug' => Str::slug('Trẻ em'),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ],
+        // ]);
 
         // Sản phẩm
-        DB::table('products')->insert([
-            ['category_id' => 1, 'name' => 'Áo thun nam', 'slug' => Str::slug('Áo thun nam'), 'decription' => 'Áo thun cotton mềm mại, thoáng mát', 'price' => 199000, 'discount_price' => 149000, 'stock' => 50, 'sku' => 'ATN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 1, 'name' => 'Áo sơ mi nữ', 'slug' => Str::slug('Áo sơ mi nữ'), 'decription' => 'Áo sơ mi công sở nữ, kiểu dáng thanh lịch', 'price' => 249000, 'discount_price' => 199000, 'stock' => 30, 'sku' => 'ASN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 1, 'name' => 'Quần jean nam', 'slug' => Str::slug('Quần jean nam'), 'decription' => 'Quần jean nam thời trang, co giãn nhẹ', 'price' => 299000, 'discount_price' => 259000, 'stock' => 40, 'sku' => 'QJN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 1, 'name' => 'Quần kaki nữ', 'slug' => Str::slug('Quần kaki nữ'), 'decription' => 'Quần kaki nữ, nhiều màu lựa chọn', 'price' => 279000, 'discount_price' => 229000, 'stock' => 25, 'sku' => 'QKN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 2, 'name' => 'Mũ lưỡi trai', 'slug' => Str::slug('Mũ lưỡi trai'), 'decription' => 'Mũ lưỡi trai nam/nữ, chất liệu cotton', 'price' => 99000, 'discount_price' => 79000, 'stock' => 60, 'sku' => 'MLT001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 2, 'name' => 'Thắt lưng da', 'slug' => Str::slug('Thắt lưng da'), 'decription' => 'Thắt lưng da thật, bền bỉ', 'price' => 159000, 'discount_price' => 129000, 'stock' => 40, 'sku' => 'TLD001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 2, 'name' => 'Vòng tay thời trang', 'slug' => Str::slug('Vòng tay thời trang'), 'decription' => 'Vòng tay phong cách trẻ trung', 'price' => 79000, 'discount_price' => 59000, 'stock' => 80, 'sku' => 'VT001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 3, 'name' => 'Giày thể thao nam', 'slug' => Str::slug('Giày thể thao nam'), 'decription' => 'Giày thể thao êm, chống trơn trượt', 'price' => 499000, 'discount_price' => 399000, 'stock' => 30, 'sku' => 'GTN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['category_id' => 3, 'name' => 'Giày cao gót nữ', 'slug' => Str::slug('Giày cao gót nữ'), 'decription' => 'Giày cao gót nữ, sang trọng', 'price' => 599000, 'discount_price' => 499000, 'stock' => 20, 'sku' => 'GGN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        // DB::table('products')->insert([
+        //     ['category_id' => 1, 'name' => 'Áo thun nam', 'slug' => Str::slug('Áo thun nam'), 'decription' => 'Áo thun cotton mềm mại, thoáng mát', 'price' => 199000, 'discount_price' => 149000, 'stock' => 50, 'sku' => 'ATN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 1, 'name' => 'Áo sơ mi nữ', 'slug' => Str::slug('Áo sơ mi nữ'), 'decription' => 'Áo sơ mi công sở nữ, kiểu dáng thanh lịch', 'price' => 249000, 'discount_price' => 199000, 'stock' => 30, 'sku' => 'ASN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 1, 'name' => 'Quần jean nam', 'slug' => Str::slug('Quần jean nam'), 'decription' => 'Quần jean nam thời trang, co giãn nhẹ', 'price' => 299000, 'discount_price' => 259000, 'stock' => 40, 'sku' => 'QJN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 1, 'name' => 'Quần kaki nữ', 'slug' => Str::slug('Quần kaki nữ'), 'decription' => 'Quần kaki nữ, nhiều màu lựa chọn', 'price' => 279000, 'discount_price' => 229000, 'stock' => 25, 'sku' => 'QKN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 2, 'name' => 'Mũ lưỡi trai', 'slug' => Str::slug('Mũ lưỡi trai'), 'decription' => 'Mũ lưỡi trai nam/nữ, chất liệu cotton', 'price' => 99000, 'discount_price' => 79000, 'stock' => 60, 'sku' => 'MLT001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 2, 'name' => 'Thắt lưng da', 'slug' => Str::slug('Thắt lưng da'), 'decription' => 'Thắt lưng da thật, bền bỉ', 'price' => 159000, 'discount_price' => 129000, 'stock' => 40, 'sku' => 'TLD001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 2, 'name' => 'Vòng tay thời trang', 'slug' => Str::slug('Vòng tay thời trang'), 'decription' => 'Vòng tay phong cách trẻ trung', 'price' => 79000, 'discount_price' => 59000, 'stock' => 80, 'sku' => 'VT001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 3, 'name' => 'Giày thể thao nam', 'slug' => Str::slug('Giày thể thao nam'), 'decription' => 'Giày thể thao êm, chống trơn trượt', 'price' => 499000, 'discount_price' => 399000, 'stock' => 30, 'sku' => 'GTN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        //     ['category_id' => 3, 'name' => 'Giày cao gót nữ', 'slug' => Str::slug('Giày cao gót nữ'), 'decription' => 'Giày cao gót nữ, sang trọng', 'price' => 599000, 'discount_price' => 499000, 'stock' => 20, 'sku' => 'GGN001', 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+        // ]);
 
 
         // DB::table('product_images')->insert([

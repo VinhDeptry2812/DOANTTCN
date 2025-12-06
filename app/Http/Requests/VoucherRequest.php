@@ -21,7 +21,7 @@ class VoucherRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'code' => 'required|string|unique:vouchers,code,' . $this->route('voucher'),
             'name' => 'required|string|max:255',
             'type' => 'required|in:percent,amount',
@@ -32,11 +32,22 @@ class VoucherRequest extends FormRequest
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ];
+
+        // Nếu type là percent, value phải <= 100
+        if ($this->input('type') === 'percent') {
+            $rules['value'] .= '|max:100';
+            // max_discount phải null
+            $rules['max_discount'] = 'nullable';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
     {
         return [
+            'value.max' => 'Giá trị giảm theo % không được lớn hơn 100.',
+            'max_discount.*' => 'Chỉ được sử dụng khi loại là giảm tiền.',
             'code.required' => 'Mã voucher là bắt buộc.',
             'code.unique' => 'Mã voucher đã tồn tại.',
             'name.required' => 'Tên voucher là bắt buộc.',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -31,6 +32,7 @@ class HomePageController extends Controller
             ->get();
         $categories = Category::all();
 
+        $blogs = Blog::all();
 
         $carouselBanners = Banner::where('position', 'header-top')->where('status', 1)->get();
 
@@ -46,6 +48,7 @@ class HomePageController extends Controller
             'banner2',
             'banner3',
             'categories',
+            'blogs',
         ));
     }
 
