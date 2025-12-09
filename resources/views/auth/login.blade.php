@@ -5,8 +5,8 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+    <link rel="stylesheet" href="/resources/css/app.css">
+    <script src="/resources/js/app.js"></script>
     <title>Đăng nhập | YODY Style</title>
 </head>
 
@@ -27,8 +27,7 @@
                 </label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}"
                     class="w-full p-3 border border-gray-300 rounded-xl focus:border-[#FF9B00] focus:ring-[#FF9B00]"
-                    placeholder="Nhập email..."
-                    required>
+                    placeholder="Nhập email..." required>
                 @error('email')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -41,8 +40,7 @@
                 </label>
                 <input type="password" name="password" id="password"
                     class="w-full p-3 border border-gray-300 rounded-xl focus:border-[#FF9B00] focus:ring-[#FF9B00]"
-                    placeholder="Nhập mật khẩu..."
-                    required>
+                    placeholder="Nhập mật khẩu..." required>
             </div>
 
             <div class="flex justify-end">

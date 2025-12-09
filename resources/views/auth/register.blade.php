@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+    <link rel="stylesheet" href="/resources/css/app.css">
+    <script src="/resources/js/app.js"></script>
     <title>Đăng ký tài khoản</title>
 </head>
 
@@ -27,11 +27,10 @@
                     Họ và tên
                 </label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}"
-                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
-                       placeholder="Nhập họ và tên"
-                       required>
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
+                    placeholder="Nhập họ và tên" required>
                 @error('name')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -41,11 +40,10 @@
                     Email
                 </label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}"
-                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
-                       placeholder="Nhập email"
-                       required>
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
+                    placeholder="Nhập email" required>
                 @error('email')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -55,11 +53,10 @@
                     Mật khẩu
                 </label>
                 <input type="password" id="password" name="password"
-                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
-                       placeholder="Nhập mật khẩu"
-                       required>
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
+                    placeholder="Nhập mật khẩu" required>
                 @error('password')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -69,17 +66,16 @@
                     Xác nhận mật khẩu
                 </label>
                 <input type="password" id="password_confirmation" name="password_confirmation"
-                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
-                       placeholder="Nhập lại mật khẩu"
-                       required>
+                    class="w-full p-3 border border-gray-300 rounded-xl focus:ring-[#FF9B00] focus:border-[#FF9B00]"
+                    placeholder="Nhập lại mật khẩu" required>
                 @error('password_confirmation')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             {{-- BUTTON --}}
             <button type="submit"
-                    class="w-full py-3 text-white rounded-full bg-[#FF9B00] hover:bg-[#f48a00] font-semibold text-lg shadow">
+                class="w-full py-3 text-white rounded-full bg-[#FF9B00] hover:bg-[#f48a00] font-semibold text-lg shadow">
                 Tạo tài khoản
             </button>
 
