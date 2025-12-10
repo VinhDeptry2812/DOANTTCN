@@ -105,29 +105,29 @@ class DatabaseSeeder extends Seeder
 
 
         // Danh mục
-        // DB::table('categories')->insert([
-        //     [
-        //         'name' => 'Nam',
-        //         'decription' => 'Tất cả các loại áo quần cho nam.',
-        //         'slug' => Str::slug('Áo nam'),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     [
-        //         'name' => 'Nữ',
-        //         'decription' => 'Tất cả các loại áo quần cho nữ',
-        //         'slug' => Str::slug('Áo nữ'),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     [
-        //         'name' => 'Trẻ em',
-        //         'decription' => 'Bộ sưu tập giày dép cho nam và nữ.',
-        //         'slug' => Str::slug('Trẻ em'),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        // ]);
+        DB::table('categories')->insert([
+            [
+                'name' => 'Nam',
+                'decription' => 'Tất cả các loại áo quần cho nam.',
+                'slug' => Str::slug('Áo nam'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Nữ',
+                'decription' => 'Tất cả các loại áo quần cho nữ',
+                'slug' => Str::slug('Áo nữ'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Trẻ em',
+                'decription' => 'Bộ sưu tập giày dép cho nam và nữ.',
+                'slug' => Str::slug('Trẻ em'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
 
         // Sản phẩm
         // DB::table('products')->insert([

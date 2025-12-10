@@ -16,21 +16,6 @@
                     <p>No banners</p>
                 @endforelse
             </div>
-            {{-- <!-- Slider indicators -->
-            <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-                <button type="button" class="w-3 h-3 rounded-base" aria-current="true" aria-label="Slide 1"
-                    data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 2"
-                    data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 3"
-                    data-carousel-slide-to="2"></button>
-                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 4"
-                    data-carousel-slide-to="3"></button>
-                <button type="button" class="w-3 h-3 rounded-base" aria-current="false" aria-label="Slide 5"
-                    data-carousel-slide-to="4"></button>
-            </div> --}}
-            <!-- Slider controls -->
-            <!-- Nút Previous -->
             <button type="button"
                 class="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center 
                 w-12 h-12 rounded-full bg-white/40 backdrop-blur-md shadow-lg
@@ -54,6 +39,20 @@
                 </svg>
             </button>
 
+        </div>
+    </section>
+
+    {{-- BANNER 3 --}}
+    <section class="bg-white">
+        <div class="max-w-screen-xl mx-auto py-6 px-4 lg:px-10 pb-2">
+            <div class="relative overflow-hidden rounded-2xl">
+                @forelse($banner3 as $bn)
+                    <img src="{{ asset($bn->image) }}" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
+                @empty
+                    <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
+                @endforelse
+
+            </div>
         </div>
     </section>
 
@@ -220,50 +219,7 @@
         </div>
     </section>
 
-    {{-- BANNER 3 --}}
-    <section class="bg-white">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 pb-2">
-            <div class="relative overflow-hidden rounded-2xl">
-                @forelse($banner3 as $bn)
-                    <img src="{{ asset($bn->image) }}" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
-                @empty
-                    <img src="#" alt="Banner 3" class="w-full h-full object-cover max-h-[260px]">
-                @endforelse
 
-            </div>
-        </div>
-    </section>
-
-    {{-- 5. BỘ SƯU TẬP GIA ĐÌNH --}}
-    <section id="section-collection" class="bg-white">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-10 py-8">
-            <div class="grid md:grid-cols-2 gap-4 items-center">
-                <div>
-                    <h2 class="text-lg md:text-2xl font-bold uppercase">Bộ sưu tập gia đình</h2>
-                    <p class="mt-3 text-sm text-gray-600">
-                        Set đồ gia đình đồng điệu, chất liệu mềm mại, phù hợp cho du lịch, sự kiện,
-                        chụp kỷ niệm... Thiết kế trẻ trung, năng động đúng style YODY.
-                    </p>
-                    <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                        <li>• Chất liệu co giãn thoải mái</li>
-                        <li>• Bảng size đầy đủ cho cả gia đình</li>
-                        <li>• Màu sắc tươi sáng, trẻ trung</li>
-                    </ul>
-                    <div class="mt-4">
-                        <a href="#"
-                            class="inline-block px-5 py-2 rounded-full bg-[#ff9b0d] text-white text-sm font-semibold">
-                            Xem bộ sưu tập
-                        </a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <img src="{{ asset('collection/family1.jpg') }}" class="rounded-2xl w-full h-full object-cover"
-                        alt="">
-                    <img src="{{ asset('collection/family2.jpg') }}" class="rounded-2xl w-full h-full object-cover"
-                        alt="">
-                </div>
-            </div>
-    </section>
 
     {{-- 6. BLOG / TIN TỨC --}}
     <!-- Blog Section -->

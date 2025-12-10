@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="/resources/css/app.css">
-    <script src="/resources/js/app.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>@yield('title')</title>
     <title>Register</title>
 </head>
