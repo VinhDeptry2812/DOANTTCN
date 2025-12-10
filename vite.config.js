@@ -10,4 +10,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    // Thêm base URL cho production
+    base: process.env.NODE_ENV === 'production' 
+        ? '/build/' 
+        : 'http://localhost:5173',
 });
