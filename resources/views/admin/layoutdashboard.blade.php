@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @if (config('app.env') === 'production')
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    @else
+    @env('local')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @else
+        <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
+        <script type="module" src="{{ Vite::asset('resources/js/app.js') }}"></script>
+    @endenv
     <title>@yield('title')</title>
     <title>Register</title>
 </head>

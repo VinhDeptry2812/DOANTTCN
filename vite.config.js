@@ -10,8 +10,14 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    // Thêm base URL cho production
-    base: process.env.NODE_ENV === 'production' 
-        ? '/build/' 
-        : 'http://localhost:5173',
+    // Thêm build config
+    build: {
+        outDir: 'public/build',
+        manifest: true,
+        rollupOptions: {
+            input: {
+                app: 'resources/js/app.js'
+            }
+        }
+    }
 });

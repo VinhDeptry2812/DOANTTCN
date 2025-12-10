@@ -4,18 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @if (config('app.env') === 'production')
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    @else
+
+    {{-- Cách 2: Dùng Vite::asset() --}}
+    
+    @env('local')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @else
+        <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
+        <script type="module" src="{{ Vite::asset('resources/js/app.js') }}"></script>
+    @endenv
+   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-
     <title>@yield('title')</title>
-
-
 </head>
 
 <style>
